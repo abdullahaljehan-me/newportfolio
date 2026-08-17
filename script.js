@@ -1,7 +1,7 @@
 /* ═══════════════════════════════════════════════════════
    Portfolio JS — Abdullah Al Jehan
    Preloader, Typewriter Subtitle, Floating Terminal Drawer,
-   Dynamic GitHub API (with OpenGraph Banners), Theme & Toast
+   OKLCH Theme System, Scroll Animations & Toast
    ═══════════════════════════════════════════════════════ */
 
 (function () {
@@ -14,7 +14,7 @@
       preloader.classList.add('fade-out');
       setTimeout(() => {
         preloader.style.display = 'none';
-      }, 500);
+      }, 400);
     }
   }
 
@@ -202,115 +202,6 @@
     });
   }
 
-  // ─── GitHub API with GitHub OpenGraph Banner Thumbnails ──────
-  const repoContainer = document.getElementById('githubRepoContainer');
-
-  async function fetchGitHubRepos() {
-    if (!repoContainer) return;
-    try {
-      const response = await fetch('https://api.github.com/users/abdullahaljehan-me/repos?sort=updated&per_page=10');
-      if (!response.ok) throw new Error('GitHub API response error');
-      const repos = await response.json();
-
-      if (!Array.isArray(repos)) return;
-
-      const excludedNames = ['abdullahaljehan-me', 'skills-introduction-to-github'];
-      const filteredRepos = repos.filter(r => !excludedNames.includes(r.name.toLowerCase()));
-
-      repoContainer.innerHTML = '';
-
-      if (filteredRepos.length === 0) {
-        renderFallbackRepos();
-        return;
-      }
-
-      filteredRepos.slice(0, 6).forEach((repo) => {
-        const card = document.createElement('div');
-        card.className = 'repo-card card-surface lift';
-        
-        const langColor = getLangColor(repo.language);
-        const description = repo.description || 'Public repository by Abdullah Al Jehan';
-        const stars = repo.stargazers_count || 0;
-        const forks = repo.forks_count || 0;
-        const bannerUrl = `https://opengraph.githubassets.com/1/${repo.owner.login}/${repo.name}`;
-
-        card.innerHTML = `
-          <div class="repo-banner-container">
-            <img src="${bannerUrl}" alt="${repo.name} Banner" loading="lazy" />
-          </div>
-          <div class="repo-card-body">
-            <h4 class="repo-name">
-              <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer">${repo.name}</a>
-            </h4>
-            <p class="repo-desc">${escapeHTML(description)}</p>
-            <div class="repo-meta">
-              ${repo.language ? `<span class="repo-lang"><span class="repo-lang-dot" style="background:${langColor}"></span> ${repo.language}</span>` : ''}
-              <span>★ ${stars}</span>
-              <span>⑂ ${forks}</span>
-            </div>
-          </div>
-        `;
-        repoContainer.appendChild(card);
-      });
-    } catch (err) {
-      console.warn('GitHub API fetch error, using fallback:', err);
-      renderFallbackRepos();
-    }
-  }
-
-  function getLangColor(lang) {
-    const colors = {
-      'C': '#555555',
-      'C++': '#f34b7d',
-      'HTML': '#e34c26',
-      'CSS': '#563d7c',
-      'JavaScript': '#f1e05a',
-      'Python': '#3572A5'
-    };
-    return colors[lang] || '#818cf8';
-  }
-
-  function escapeHTML(str) {
-    return str.replace(/[&<>'"]/g, 
-      tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
-  }
-
-  function renderFallbackRepos() {
-    if (!repoContainer) return;
-    repoContainer.innerHTML = `
-      <div class="repo-card card-surface lift">
-        <div class="repo-banner-container">
-          <img src="https://opengraph.githubassets.com/1/abdullahaljehan-me/contact-management-system-c" alt="contact-management-system-c Banner" />
-        </div>
-        <div class="repo-card-body">
-          <h4 class="repo-name"><a href="https://github.com/abdullahaljehan-me/contact-management-system-c" target="_blank">contact-management-system-c</a></h4>
-          <p class="repo-desc">Menu-driven Contact Management System written in C using binary file handling.</p>
-          <div class="repo-meta">
-            <span class="repo-lang"><span class="repo-lang-dot" style="background:#555555"></span> C</span>
-            <span>★ 0</span>
-            <span>⑂ 0</span>
-          </div>
-        </div>
-      </div>
-      <div class="repo-card card-surface lift">
-        <div class="repo-banner-container">
-          <img src="https://opengraph.githubassets.com/1/abdullahaljehan-me/portfolio" alt="portfolio Banner" />
-        </div>
-        <div class="repo-card-body">
-          <h4 class="repo-name"><a href="https://github.com/abdullahaljehan-me/portfolio" target="_blank">portfolio</a></h4>
-          <p class="repo-desc">Personal portfolio site — OKLCH design system, live GitHub REST API & CLI drawer.</p>
-          <div class="repo-meta">
-            <span class="repo-lang"><span class="repo-lang-dot" style="background:#e34c26"></span> HTML</span>
-            <span>★ 0</span>
-            <span>⑂ 0</span>
-          </div>
-        </div>
-      </div>
-    `;
-  }
-
-  fetchGitHubRepos();
-
   // ─── Particle Canvas Background ─────────────────────
   const canvas = document.getElementById('particleCanvas');
   if (canvas && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -467,6 +358,11 @@
     line.innerHTML = html;
     terminalOutput.appendChild(line);
     terminalOutput.scrollTop = terminalOutput.scrollHeight;
+  }
+
+  function escapeHTML(str) {
+    return str.replace(/[&<>'"]/g, 
+      tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
   }
 
   function processCLICommand(cmd) {
