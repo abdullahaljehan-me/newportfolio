@@ -1,13 +1,13 @@
 /* ═══════════════════════════════════════════════════════
    Portfolio JS — Abdullah Al Jehan
    Preloader, Typewriter Subtitle, Floating Terminal Drawer,
-   Dynamic GitHub API, Theme Management & Toast System
+   Dynamic GitHub API (with OpenGraph Banners), Theme & Toast
    ═══════════════════════════════════════════════════════ */
 
 (function () {
   'use strict';
 
-  // ─── Preloader Loader Screen ─────────────────────────
+  // ─── Preloader Screen ────────────────────────────────
   const preloader = document.getElementById('skeletonPreloader');
   function hidePreloader() {
     if (preloader) {
@@ -22,7 +22,6 @@
     hidePreloader();
   } else {
     window.addEventListener('load', hidePreloader);
-    // Safety fallback
     setTimeout(hidePreloader, 1500);
   }
 
@@ -38,7 +37,7 @@
   const revealElements = document.querySelectorAll('.reveal');
   const toastContainer = document.getElementById('toastContainer');
 
-  // ─── Toast Notification System ──────────────────────
+  // ─── Toast System ───────────────────────────────────
   function showToast(message, icon = '⚡') {
     if (!toastContainer) return;
     const toast = document.createElement('div');
@@ -147,7 +146,7 @@
     link.addEventListener('click', closeMenu);
   });
 
-  // ─── Navbar Scroll & Active Link Tracking ─────────────
+  // ─── Scroll & Navigation Active State ──────────────
   const sections = document.querySelectorAll('section[id]');
 
   function handleNavScroll() {
@@ -180,7 +179,7 @@
 
   window.addEventListener('scroll', handleNavScroll, { passive: true });
 
-  // ─── Reveal on Scroll (IntersectionObserver) ────────
+  // ─── Scroll Reveal (IntersectionObserver) ──────────
   if ('IntersectionObserver' in window) {
     const revealObserver = new IntersectionObserver(
       (entries) => {
@@ -203,7 +202,7 @@
     });
   }
 
-  // ─── Live GitHub REST API Repository Feed ────────────
+  // ─── GitHub API with GitHub OpenGraph Banner Thumbnails ──────
   const repoContainer = document.getElementById('githubRepoContainer');
 
   async function fetchGitHubRepos() {
@@ -233,16 +232,22 @@
         const description = repo.description || 'Public repository by Abdullah Al Jehan';
         const stars = repo.stargazers_count || 0;
         const forks = repo.forks_count || 0;
+        const bannerUrl = `https://opengraph.githubassets.com/1/${repo.owner.login}/${repo.name}`;
 
         card.innerHTML = `
-          <h4 class="repo-name">
-            <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer">${repo.name}</a>
-          </h4>
-          <p class="repo-desc">${escapeHTML(description)}</p>
-          <div class="repo-meta">
-            ${repo.language ? `<span class="repo-lang"><span class="repo-lang-dot" style="background:${langColor}"></span> ${repo.language}</span>` : ''}
-            <span>★ ${stars}</span>
-            <span>⑂ ${forks}</span>
+          <div class="repo-banner-container">
+            <img src="${bannerUrl}" alt="${repo.name} Banner" loading="lazy" />
+          </div>
+          <div class="repo-card-body">
+            <h4 class="repo-name">
+              <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer">${repo.name}</a>
+            </h4>
+            <p class="repo-desc">${escapeHTML(description)}</p>
+            <div class="repo-meta">
+              ${repo.language ? `<span class="repo-lang"><span class="repo-lang-dot" style="background:${langColor}"></span> ${repo.language}</span>` : ''}
+              <span>★ ${stars}</span>
+              <span>⑂ ${forks}</span>
+            </div>
           </div>
         `;
         repoContainer.appendChild(card);
@@ -274,30 +279,31 @@
     if (!repoContainer) return;
     repoContainer.innerHTML = `
       <div class="repo-card card-surface lift">
-        <h4 class="repo-name"><a href="https://github.com/abdullahaljehan-me/contact-management-system-c" target="_blank">contact-management-system-c</a></h4>
-        <p class="repo-desc">Menu-driven Contact Management System written in C using binary file handling.</p>
-        <div class="repo-meta">
-          <span class="repo-lang"><span class="repo-lang-dot" style="background:#555555"></span> C</span>
-          <span>★ 0</span>
-          <span>⑂ 0</span>
+        <div class="repo-banner-container">
+          <img src="https://opengraph.githubassets.com/1/abdullahaljehan-me/contact-management-system-c" alt="contact-management-system-c Banner" />
+        </div>
+        <div class="repo-card-body">
+          <h4 class="repo-name"><a href="https://github.com/abdullahaljehan-me/contact-management-system-c" target="_blank">contact-management-system-c</a></h4>
+          <p class="repo-desc">Menu-driven Contact Management System written in C using binary file handling.</p>
+          <div class="repo-meta">
+            <span class="repo-lang"><span class="repo-lang-dot" style="background:#555555"></span> C</span>
+            <span>★ 0</span>
+            <span>⑂ 0</span>
+          </div>
         </div>
       </div>
       <div class="repo-card card-surface lift">
-        <h4 class="repo-name"><a href="https://github.com/abdullahaljehan-me/portfolio" target="_blank">portfolio</a></h4>
-        <p class="repo-desc">Personal portfolio site — OKLCH design system, live GitHub REST API & CLI drawer.</p>
-        <div class="repo-meta">
-          <span class="repo-lang"><span class="repo-lang-dot" style="background:#e34c26"></span> HTML</span>
-          <span>★ 0</span>
-          <span>⑂ 0</span>
+        <div class="repo-banner-container">
+          <img src="https://opengraph.githubassets.com/1/abdullahaljehan-me/portfolio" alt="portfolio Banner" />
         </div>
-      </div>
-      <div class="repo-card card-surface lift">
-        <h4 class="repo-name"><a href="https://github.com/Kynatium-Labs/workshop_obstracle_avoiding_robot" target="_blank">workshop_obstracle_avoiding_robot</a></h4>
-        <p class="repo-desc">Autonomous obstacle avoiding robot C++ firmware for Kynatium Labs workshops.</p>
-        <div class="repo-meta">
-          <span class="repo-lang"><span class="repo-lang-dot" style="background:#f34b7d"></span> C++</span>
-          <span>★ 0</span>
-          <span>⑂ 0</span>
+        <div class="repo-card-body">
+          <h4 class="repo-name"><a href="https://github.com/abdullahaljehan-me/portfolio" target="_blank">portfolio</a></h4>
+          <p class="repo-desc">Personal portfolio site — OKLCH design system, live GitHub REST API & CLI drawer.</p>
+          <div class="repo-meta">
+            <span class="repo-lang"><span class="repo-lang-dot" style="background:#e34c26"></span> HTML</span>
+            <span>★ 0</span>
+            <span>⑂ 0</span>
+          </div>
         </div>
       </div>
     `;
@@ -305,7 +311,7 @@
 
   fetchGitHubRepos();
 
-  // ─── Particle Canvas Background Animation ────────────
+  // ─── Particle Canvas Background ─────────────────────
   const canvas = document.getElementById('particleCanvas');
   if (canvas && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const ctx = canvas.getContext('2d');

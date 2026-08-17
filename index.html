@@ -10,7 +10,7 @@
   <!-- Open Graph -->
   <meta property="og:title" content="Abdullah Al Jehan — Embedded Systems & IoT Developer" />
   <meta property="og:description" content="Ambitious student gearing up for engineering. Deep dive into Embedded systems, IoT, C Programming, and Linux." />
-  <meta property="og:image" content="assets/og-image.jpg" />
+  <meta property="og:image" content="assets/profile.jpg" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://abdullahaljehan-me.github.io/portfolio/" />
   
@@ -18,15 +18,15 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Abdullah Al Jehan — Embedded Systems & IoT Developer" />
   <meta name="twitter:description" content="Science student focused on Embedded Systems, IoT, C, Linux, and Robotics." />
-  <meta name="twitter:image" content="assets/og-image.jpg" />
+  <meta name="twitter:image" content="assets/profile.jpg" />
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   
-  <!-- Favicon -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+  <!-- Custom Profile Avatar Favicon -->
+  <link rel="icon" type="image/jpeg" href="assets/profile.jpg" />
   
   <!-- Structured Data / JSON-LD -->
   <script type="application/ld+json">
@@ -69,7 +69,9 @@
   <!-- ═══════════════════════════════════════ -->
   <div class="skeleton-preloader" id="skeletonPreloader">
     <div class="preloader-content">
-      <div class="preloader-spinner"></div>
+      <div class="preloader-avatar-spinner">
+        <img src="assets/profile.jpg" alt="Abdullah Al Jehan Avatar" class="preloader-avatar" />
+      </div>
       <div class="preloader-text">Loading System Environment...</div>
     </div>
   </div>
@@ -79,17 +81,20 @@
   <!-- ═══════════════════════════════════════ -->
   <nav class="navbar" id="navbar">
     <div class="container nav-container">
-      <a href="#home" class="nav-logo" aria-label="Home">
-        <span class="logo-text">AJ</span>
+      <a href="#home" class="nav-logo-avatar" aria-label="Home">
+        <img src="assets/profile.jpg" alt="Abdullah Al Jehan Avatar" class="nav-avatar-img" />
+        <span class="logo-text">Jehan</span>
         <span class="logo-status-dot" title="System Online"></span>
       </a>
       <ul class="nav-links" id="navLinks">
         <li><a href="#home" class="nav-link active">Home</a></li>
         <li><a href="#about" class="nav-link">About</a></li>
         <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#education" class="nav-link">Education</a></li>
+        <li><a href="#experience" class="nav-link">Experience</a></li>
         <li><a href="#projects" class="nav-link">Projects</a></li>
-        <li><a href="#research-blogs" class="nav-link">Research & Blogs</a></li>
-        <li><a href="#experience" class="nav-link">Experience & Edu</a></li>
+        <li><a href="#research" class="nav-link">Research</a></li>
+        <li><a href="#blogs" class="nav-link">Blogs</a></li>
         <li><a href="#contact" class="nav-link">Contact</a></li>
       </ul>
       <div class="nav-actions">
@@ -98,7 +103,7 @@
           <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         </button>
         <a href="assets/resume.pdf" target="_blank" class="btn btn-primary btn-sm" id="navResumeBtn">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
           Resume
         </a>
         <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
@@ -108,11 +113,10 @@
     </div>
   </nav>
 
-  <!-- Mobile Menu Overlay -->
   <div class="mobile-overlay" id="mobileOverlay"></div>
 
   <!-- ═══════════════════════════════════════ -->
-  <!-- HERO SECTION                            -->
+  <!-- 1. HOME SECTION                         -->
   <!-- ═══════════════════════════════════════ -->
   <section class="hero" id="home">
     <canvas id="particleCanvas" class="hero-canvas"></canvas>
@@ -126,7 +130,6 @@
           Hi, I'm <span class="highlight">Abdullah</span><br />Al Jehan
         </h1>
         
-        <!-- Dynamic Typewriter Subtitle -->
         <div class="hero-subtitle-container reveal">
           <span class="hero-animated-subtitle" id="heroAnimatedSubtitle">Engineering Aspirant · Systems & Embedded</span>
           <span class="typewriter-cursor">|</span>
@@ -166,7 +169,7 @@
   </section>
 
   <!-- ═══════════════════════════════════════ -->
-  <!-- ABOUT SECTION                           -->
+  <!-- 2. ABOUT SECTION                        -->
   <!-- ═══════════════════════════════════════ -->
   <section class="section about" id="about">
     <div class="container">
@@ -197,17 +200,16 @@
   </section>
 
   <!-- ═══════════════════════════════════════ -->
-  <!-- SKILLS & FOCUS SECTION                  -->
+  <!-- 3. SKILLS SECTION                       -->
   <!-- ═══════════════════════════════════════ -->
   <section class="section skills" id="skills">
     <div class="container">
       <div class="section-header reveal">
         <span class="section-tag">Technical Competencies</span>
-        <h2 class="section-title">Skills & Learning Roadmap</h2>
+        <h2 class="section-title">Skills & Learning Focus</h2>
         <p class="section-subtitle">Accurate proficiency breakdown arranged from highest to current progression level.</p>
       </div>
 
-      <!-- Current Learning Focus Board -->
       <div class="learning-board-banner card-surface lift reveal">
         <div class="lb-header">
           <span class="lb-pulse"></span>
@@ -231,7 +233,6 @@
         </div>
       </div>
 
-      <!-- Skill Progress Bars (Ranked High to Low) -->
       <div class="skills-progress-grid">
 
         <div class="skill-category-card card-surface lift reveal">
@@ -323,14 +324,85 @@
   </section>
 
   <!-- ═══════════════════════════════════════ -->
-  <!-- PROJECTS SECTION                        -->
+  <!-- 4. EDUCATION SECTION (STANDALONE)       -->
+  <!-- ═══════════════════════════════════════ -->
+  <section class="section education" id="education">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Academic Foundation</span>
+        <h2 class="section-title">Education</h2>
+        <p class="section-subtitle">Academic degrees and schooling background.</p>
+      </div>
+
+      <div class="education-grid">
+        <div class="education-card card-surface lift reveal">
+          <div class="education-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>
+          </div>
+          <div class="education-details">
+            <h3 class="education-degree">Higher Secondary Certificate (HSC)</h3>
+            <p class="education-school">Government Science College</p>
+            <p class="education-info">Science · GPA 5.00 / 5.00</p>
+            <span class="education-date">Oct 2023 — Jun 2025</span>
+          </div>
+        </div>
+
+        <div class="education-card card-surface lift reveal">
+          <div class="education-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>
+          </div>
+          <div class="education-details">
+            <h3 class="education-degree">Secondary School Certificate (SSC)</h3>
+            <p class="education-school">President Professor Dr. Iajuddin Ahmed Residential Model School & College</p>
+            <p class="education-info">Science · GPA 5.00 / 5.00</p>
+            <span class="education-date">Jan 2018 — May 2023</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- 5. EXPERIENCE SECTION (STANDALONE)      -->
+  <!-- ═══════════════════════════════════════ -->
+  <section class="section experience" id="experience">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Track Record</span>
+        <h2 class="section-title">Leadership & Work Experience</h2>
+        <p class="section-subtitle">Advisory roles and hands-on organizational contributions.</p>
+      </div>
+
+      <div class="timeline single-column-timeline">
+        <div class="timeline-item reveal">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content card-surface lift">
+            <div class="timeline-header-row">
+              <h3 class="timeline-title">Founding Advisor</h3>
+              <span class="timeline-date">Jan 2026 — Present</span>
+            </div>
+            <p class="timeline-company">Kynatium Labs · Dhaka, Bangladesh</p>
+            <ul class="timeline-details">
+              <li>Advised founders on strategy, planning, and early direction.</li>
+              <li>Reviewed ideas and technical content for clarity and accuracy.</li>
+              <li>Guided social media and beginner-focused outreach.</li>
+              <li>Supported roadmap development and early growth decisions.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- 6. PROJECTS SECTION                     -->
   <!-- ═══════════════════════════════════════ -->
   <section class="section projects" id="projects">
     <div class="container">
       <div class="section-header reveal">
         <span class="section-tag">Software & Hardware Work</span>
         <h2 class="section-title">Featured Projects</h2>
-        <p class="section-subtitle">Real code repositories and hardware prototypes I've built.</p>
+        <p class="section-subtitle">Real code repositories and hardware prototypes with dynamic GitHub banner thumbnails.</p>
       </div>
 
       <div class="projects-grid">
@@ -338,10 +410,7 @@
         <!-- Project 1 -->
         <article class="project-card card-surface lift reveal">
           <div class="project-thumbnail">
-            <div class="thumbnail-placeholder">
-              <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-              <span>contact_manager.c</span>
-            </div>
+            <img src="https://opengraph.githubassets.com/1/abdullahaljehan-me/contact-management-system-c" alt="Contact Management System Banner" class="repo-banner-img" loading="lazy" />
           </div>
           <div class="project-card-body">
             <div class="project-card-header">
@@ -364,10 +433,7 @@
         <!-- Project 2 -->
         <article class="project-card card-surface lift reveal">
           <div class="project-thumbnail">
-            <div class="thumbnail-placeholder">
-              <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polygon points="12 8 8 16 16 16 12 8"/></svg>
-              <span>obstacle_robot.ino</span>
-            </div>
+            <img src="https://opengraph.githubassets.com/1/Kynatium-Labs/workshop_obstracle_avoiding_robot" alt="Obstacle Avoiding Robot Banner" class="repo-banner-img" loading="lazy" />
           </div>
           <div class="project-card-body">
             <div class="project-card-header">
@@ -390,10 +456,7 @@
         <!-- Project 3 -->
         <article class="project-card card-surface lift reveal">
           <div class="project-thumbnail">
-            <div class="thumbnail-placeholder">
-              <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-              <span>portfolio_site</span>
-            </div>
+            <img src="https://opengraph.githubassets.com/1/abdullahaljehan-me/portfolio" alt="Portfolio Banner" class="repo-banner-img" loading="lazy" />
           </div>
           <div class="project-card-body">
             <div class="project-card-header">
@@ -435,183 +498,148 @@
   </section>
 
   <!-- ═══════════════════════════════════════ -->
-  <!-- RESEARCH & BLOGS SECTION                -->
+  <!-- 7. RESEARCH & PUBLICATIONS (STANDALONE) -->
   <!-- ═══════════════════════════════════════ -->
-  <section class="section research-blogs" id="research-blogs">
+  <section class="section research" id="research">
     <div class="container">
       <div class="section-header reveal">
-        <span class="section-tag">Academic & Technical Writing</span>
-        <h2 class="section-title">Research & Articles</h2>
-        <p class="section-subtitle">Academic pursuits and technical notes on engineering, hardware, and embedded systems.</p>
+        <span class="section-tag">Academic Pursuits</span>
+        <h2 class="section-title">Research & Publications</h2>
+        <p class="section-subtitle">Future research initiatives and academic paper drafts.</p>
       </div>
 
-      <!-- Blogs Subsection -->
-      <div class="blogs-subsection reveal">
-        <div class="subsection-title-row">
-          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-          <h3>Technical Blogs & Social Posts</h3>
-        </div>
-        <div class="blogs-grid">
-          
-          <article class="blog-card card-surface lift">
-            <div class="blog-card-header">
-              <span class="blog-platform-tag">LinkedIn Article</span>
-              <span class="blog-date">Featured Post</span>
-            </div>
-            <h4 class="blog-title">Engineering Aspirations & Embedded Learning Insights</h4>
-            <p class="blog-excerpt">
-              Reflections on building strong math and physics foundations, exploring microcontrollers, and navigating the transition from student to embedded engineer.
-            </p>
-            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7462517434445377537/" target="_blank" rel="noopener noreferrer" class="blog-read-link">
-              Read on LinkedIn &rarr;
-            </a>
-          </article>
+      <div class="research-placeholder-card card-surface reveal">
+        <div class="research-badge">Upcoming Research</div>
+        <h3 class="research-title">Target Research Areas: Smart Systems, IoT & Sensor Integration</h3>
+        <p class="research-desc">
+          Currently establishing fundamental competencies in C systems, physics, and hardware interfacing. Open to undergraduate research collaborations in microcontrollers, robotics, and hardware-software co-design.
+        </p>
+      </div>
+    </div>
+  </section>
 
-          <article class="blog-card card-surface lift">
-            <div class="blog-card-header">
-              <span class="blog-platform-tag">LinkedIn Article</span>
-              <span class="blog-date">Featured Post</span>
-            </div>
-            <h4 class="blog-title">Hands-On Tech Education & Kynatium Labs Outreach</h4>
-            <p class="blog-excerpt">
-              Democratizing embedded systems education in Bangladesh: Why practical hands-on workshops matter for aspiring engineers.
-            </p>
-            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7408962979909558273/" target="_blank" rel="noopener noreferrer" class="blog-read-link">
-              Read on LinkedIn &rarr;
-            </a>
-          </article>
-
-        </div>
+  <!-- ═══════════════════════════════════════ -->
+  <!-- 8. BLOGS & ARTICLES (STANDALONE)        -->
+  <!-- ═══════════════════════════════════════ -->
+  <section class="section blogs" id="blogs">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Technical Notes</span>
+        <h2 class="section-title">Blogs & Articles</h2>
+        <p class="section-subtitle">Articles and reflections published on social channels.</p>
       </div>
 
-      <!-- Research Placeholder Subsection -->
-      <div class="research-subsection reveal">
-        <div class="subsection-title-row">
-          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-          <h3>Research & Publications</h3>
-        </div>
-        <div class="research-placeholder-card card-surface">
-          <div class="research-badge">Upcoming Research</div>
-          <h4 class="research-title">Target Research Areas: Smart Systems, IoT & Sensor Integration</h4>
-          <p class="research-desc">
-            Currently establishing fundamental competencies in C systems, physics, and hardware interfacing. Open to undergraduate research collaborations in microcontrollers, robotics, and hardware-software co-design.
+      <div class="blogs-grid">
+        <article class="blog-card card-surface lift reveal">
+          <div class="blog-card-header">
+            <span class="blog-platform-tag">LinkedIn Article</span>
+            <span class="blog-date">Featured Post</span>
+          </div>
+          <h3 class="blog-title">Engineering Aspirations & Embedded Learning Insights</h3>
+          <p class="blog-excerpt">
+            Reflections on building strong math and physics foundations, exploring microcontrollers, and navigating the transition from student to embedded engineer.
           </p>
-        </div>
-      </div>
+          <a href="https://www.linkedin.com/feed/update/urn:li:activity:7462517434445377537/" target="_blank" rel="noopener noreferrer" class="blog-read-link">
+            Read on LinkedIn &rarr;
+          </a>
+        </article>
 
+        <article class="blog-card card-surface lift reveal">
+          <div class="blog-card-header">
+            <span class="blog-platform-tag">LinkedIn Article</span>
+            <span class="blog-date">Featured Post</span>
+          </div>
+          <h3 class="blog-title">Hands-On Tech Education & Kynatium Labs Outreach</h3>
+          <p class="blog-excerpt">
+            Democratizing embedded systems education in Bangladesh: Why practical hands-on workshops matter for aspiring engineers.
+          </p>
+          <a href="https://www.linkedin.com/feed/update/urn:li:activity:7408962979909558273/" target="_blank" rel="noopener noreferrer" class="blog-read-link">
+            Read on LinkedIn &rarr;
+          </a>
+        </article>
+      </div>
     </div>
   </section>
 
   <!-- ═══════════════════════════════════════ -->
-  <!-- EXPERIENCE & EDUCATION SECTION          -->
+  <!-- 9. COURSES & CERTIFICATIONS (STANDALONE)-->
   <!-- ═══════════════════════════════════════ -->
-  <section class="section experience" id="experience">
+  <section class="section certifications" id="certifications">
     <div class="container">
       <div class="section-header reveal">
-        <span class="section-tag">Track Record</span>
-        <h2 class="section-title">Experience & Education</h2>
+        <span class="section-tag">Professional Growth</span>
+        <h2 class="section-title">Courses & Certifications</h2>
+        <p class="section-subtitle">Upcoming and in-progress certifications.</p>
       </div>
 
-      <div class="experience-education-grid">
-        
-        <!-- Experience Column -->
-        <div class="exp-column">
-          <h3 class="column-title">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-            Leadership Experience
-          </h3>
-          <div class="timeline">
-            <div class="timeline-item reveal">
-              <div class="timeline-marker"></div>
-              <div class="timeline-content card-surface lift">
-                <div class="timeline-header-row">
-                  <h4 class="timeline-title">Founding Advisor</h4>
-                  <span class="timeline-date">Jan 2026 — Present</span>
-                </div>
-                <p class="timeline-company">Kynatium Labs · Dhaka, Bangladesh</p>
-                <ul class="timeline-details">
-                  <li>Advised founders on strategy, planning, and early direction.</li>
-                  <li>Reviewed ideas and technical content for clarity and accuracy.</li>
-                  <li>Guided social media and beginner-focused outreach.</li>
-                  <li>Supported roadmap development and early growth decisions.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
+      <div class="cert-grid">
+        <div class="cert-card card-surface placeholder-card reveal">
+          <div class="cert-badge">Upcoming</div>
+          <h4 class="cert-title">CS50x — Introduction to Computer Science</h4>
+          <p class="cert-org">Harvard University (edX)</p>
+          <span class="cert-status">In Progress / Planned</span>
         </div>
-
-        <!-- Education Column -->
-        <div class="edu-column">
-          <h3 class="column-title">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>
-            Academic Degrees
-          </h3>
-          <div class="education-stack">
-            <div class="education-card card-surface lift reveal">
-              <div class="education-details">
-                <h4 class="education-degree">Higher Secondary Certificate (HSC)</h4>
-                <p class="education-school">Government Science College</p>
-                <p class="education-info">Science · GPA 5.00 / 5.00</p>
-                <span class="education-date">Oct 2023 — Jun 2025</span>
-              </div>
-            </div>
-            <div class="education-card card-surface lift reveal">
-              <div class="education-details">
-                <h4 class="education-degree">Secondary School Certificate (SSC)</h4>
-                <p class="education-school">President Professor Dr. Iajuddin Ahmed Residential Model School & College</p>
-                <p class="education-info">Science · GPA 5.00 / 5.00</p>
-                <span class="education-date">Jan 2018 — May 2023</span>
-              </div>
-            </div>
-          </div>
+        <div class="cert-card card-surface placeholder-card reveal">
+          <div class="cert-badge">Upcoming</div>
+          <h4 class="cert-title">CS50P — Programming with Python</h4>
+          <p class="cert-org">Harvard University (edX)</p>
+          <span class="cert-status">In Progress / Planned</span>
         </div>
-
-      </div>
-
-      <!-- Honors & Achievements Sub-Section -->
-      <div class="honors-subsection reveal">
-        <div class="subsection-title-row">
-          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
-          <h3>Honors, Achievements & Certifications</h3>
-        </div>
-        <div class="honors-grid">
-          
-          <div class="honor-card card-surface lift">
-            <div class="honor-thumbnail">
-              <div class="thumbnail-placeholder">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
-                <span>Certificate / Award Media</span>
-              </div>
-            </div>
-            <div class="honor-body">
-              <span class="honor-tag">Academic Excellence</span>
-              <h4 class="honor-title">Perfect Score GPA 5.00 (HSC & SSC)</h4>
-              <p class="honor-desc">Consistent top academic standing in Science coursework with emphasis on Physics and Mathematics.</p>
-            </div>
-          </div>
-
-          <div class="honor-card card-surface lift">
-            <div class="honor-thumbnail">
-              <div class="thumbnail-placeholder">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                <span>Certificate Media</span>
-              </div>
-            </div>
-            <div class="honor-body">
-              <span class="honor-tag">Course Certification</span>
-              <h4 class="honor-title">Computer Science & Embedded Foundations</h4>
-              <p class="honor-desc">Coursework in C programming, Linux administration, and microcontroller interfacing.</p>
-            </div>
-          </div>
-
+        <div class="cert-card card-surface placeholder-card reveal">
+          <div class="cert-badge">Upcoming</div>
+          <h4 class="cert-title">Solidworks & CAD Design</h4>
+          <p class="cert-org">3D Modeling & Mechanical Design</p>
+          <span class="cert-status">In Progress / Planned</span>
         </div>
       </div>
-
     </div>
   </section>
 
   <!-- ═══════════════════════════════════════ -->
-  <!-- CONTACT & GET IN TOUCH SECTION          -->
+  <!-- 10. HONORS & ACHIEVEMENTS (STANDALONE)  -->
+  <!-- ═══════════════════════════════════════ -->
+  <section class="section honors" id="honors">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Recognition</span>
+        <h2 class="section-title">Honors & Achievements</h2>
+        <p class="section-subtitle">Academic accolades and distinctions.</p>
+      </div>
+
+      <div class="honors-grid">
+        <div class="honor-card card-surface lift reveal">
+          <div class="honor-thumbnail">
+            <div class="thumbnail-placeholder">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+              <span>Certificate Media</span>
+            </div>
+          </div>
+          <div class="honor-body">
+            <span class="honor-tag">Academic Excellence</span>
+            <h3 class="honor-title">Perfect Score GPA 5.00 (HSC & SSC)</h3>
+            <p class="honor-desc">Consistent top academic standing in Science coursework with emphasis on Physics and Mathematics.</p>
+          </div>
+        </div>
+
+        <div class="honor-card card-surface lift reveal">
+          <div class="honor-thumbnail">
+            <div class="thumbnail-placeholder">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <span>Certificate Media</span>
+            </div>
+          </div>
+          <div class="honor-body">
+            <span class="honor-tag">Course Certification</span>
+            <h3 class="honor-title">Computer Science & Embedded Foundations</h3>
+            <p class="honor-desc">Coursework in C programming, Linux administration, and microcontroller interfacing.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- 11. CONTACT SECTION                     -->
   <!-- ═══════════════════════════════════════ -->
   <section class="section contact" id="contact">
     <div class="container">
@@ -723,9 +751,7 @@
   <!-- ═══════════════════════════════════════ -->
   <!-- FLOATING TERMINAL BUTTON & DRAWER       -->
   <!-- ═══════════════════════════════════════ -->
-  <button class="floating-term-btn" id="floatingTermBtn" aria-label="Open CLI Terminal" title="Open Interactive Terminal (Ctrl+~)">
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-  </button>
+  <button class="floating-term-btn" id="floatingTermBtn" aria-label="Open CLI Terminal" title="Open Interactive Terminal (Ctrl+~)"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg></button>
 
   <div class="terminal-drawer" id="terminalDrawer" aria-hidden="true">
     <div class="terminal-header">
@@ -750,7 +776,6 @@
     </div>
   </div>
 
-  <!-- Toast Container -->
   <div class="toast-container" id="toastContainer"></div>
 
   <script src="script.js"></script>
