@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════
    Portfolio JS — Abdullah Al Jehan
-   Preloader, Typewriter Subtitle, Floating Terminal Drawer,
+   Preloader, Typewriter Subtitle, Upgraded Floating Terminal CLI,
    OKLCH Theme System, Scroll Animations & Toast
    ═══════════════════════════════════════════════════════ */
 
@@ -268,7 +268,7 @@
     requestAnimationFrame(renderParticles);
   }
 
-  // ─── Floating Tiny Terminal Button & Drawer ──────────
+  // ─── Floating Tiny Terminal Button & Upgraded Drawer ──
   const terminalDrawer = document.getElementById('terminalDrawer');
   const floatingTermBtn = document.getElementById('floatingTermBtn');
   const termCloseBtn = document.getElementById('termCloseBtn');
@@ -371,18 +371,36 @@
     switch (mainCmd) {
       case 'help':
         appendTermLine(`
-          Available Commands:<br/>
-          • <span class="term-cmd">bio</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;— View Jehan's personal background<br/>
-          • <span class="term-cmd">skills</span> &nbsp;&nbsp;&nbsp;— Display technical skills & progression<br/>
-          • <span class="term-cmd">projects</span> — List active project repositories<br/>
-          • <span class="term-cmd">contact</span> &nbsp;— Show email address & social profiles<br/>
-          • <span class="term-cmd">github</span> &nbsp;&nbsp;— Open GitHub profile in new tab<br/>
-          • <span class="term-cmd">theme</span> &nbsp;&nbsp;&nbsp;— Toggle dark/light theme<br/>
-          • <span class="term-cmd">clear</span> &nbsp;&nbsp;&nbsp;— Clear terminal output<br/>
-          • <span class="term-cmd">date</span> &nbsp;&nbsp;&nbsp;&nbsp;— System timestamp
+          System Commands:<br/>
+          • <span class="term-cmd">neofetch</span> &nbsp;— Display system identity banner<br/>
+          • <span class="term-cmd">whoami</span> &nbsp;&nbsp;&nbsp;— Print current user bio<br/>
+          • <span class="term-cmd">skills</span> &nbsp;&nbsp;&nbsp;— View technical stack & level<br/>
+          • <span class="term-cmd">education</span> — View academic timeline (HSC/SSC)<br/>
+          • <span class="term-cmd">experience</span>— Founding Advisor details<br/>
+          • <span class="term-cmd">projects</span> &nbsp;— List selected repositories<br/>
+          • <span class="term-cmd">blogs</span> &nbsp;&nbsp;&nbsp;&nbsp;— View LinkedIn articles<br/>
+          • <span class="term-cmd">contact</span> &nbsp;&nbsp;— Direct email & location<br/>
+          • <span class="term-cmd">github</span> &nbsp;&nbsp;&nbsp;— Open GitHub profile<br/>
+          • <span class="term-cmd">theme</span> &nbsp;&nbsp;&nbsp;&nbsp;— Toggle light / dark mode<br/>
+          • <span class="term-cmd">clear</span> &nbsp;&nbsp;&nbsp;&nbsp;— Clear screen output
         `, 'info');
         break;
 
+      case 'neofetch':
+        appendTermLine(`
+          <pre style="font-family:var(--font-mono); color:#38bdf8; margin:4px 0;">
+   /\   AJ OS v2.0
+  /  \  User: Jehan
+ / /\ \ Host: Embedded Systems & IoT
+/ ____ \ Shell: OKLCH Terminal CLI
+          </pre>
+          <strong>OS:</strong> Debian/Linux Daily Driver<br/>
+          <strong>Location:</strong> Dhaka, Bangladesh<br/>
+          <strong>Role:</strong> Founding Advisor @ Kynatium Labs
+        `, 'success');
+        break;
+
+      case 'whoami':
       case 'bio':
         appendTermLine(`
           "Hi, I’m Jehan! Ambitious science student gearing up for engineering. Deep dive into Embedded systems, IoT, C programming, and Linux."
@@ -391,10 +409,25 @@
 
       case 'skills':
         appendTermLine(`
-          Languages: HTML5/CSS3 (80%), C (65%), C++ (45%)<br/>
-          Systems: Git/GitHub (75%), Linux (70%), Bash (60%)<br/>
-          Embedded: Arduino (55%), Sensors (50%), Hardware-Software Integration (45%)
+          • Web: HTML5/CSS3 (80%)<br/>
+          • Core Languages: C (65%), C++ (45%)<br/>
+          • Systems: Git/GitHub (75%), Linux (70%), Bash (60%)<br/>
+          • Embedded: Arduino (55%), Sensors (50%), Hardware-Software Integration (45%)
         `, 'success');
+        break;
+
+      case 'education':
+        appendTermLine(`
+          1. <strong>HSC (Government Science College)</strong> — Science Stream · GPA 5.00/5.00 [2023-2025]<br/>
+          2. <strong>SSC (Dr. Iajuddin Ahmed RMSC)</strong> — Science Stream · GPA 5.00/5.00 [2018-2023]
+        `, 'output');
+        break;
+
+      case 'experience':
+        appendTermLine(`
+          <strong>Founding Advisor @ Kynatium Labs</strong> [Jan 2026 — Present]<br/>
+          Advising on tech outreach, embedded fundamentals education, and roadmap strategy.
+        `, 'output');
         break;
 
       case 'projects':
@@ -405,10 +438,18 @@
         `, 'output');
         break;
 
+      case 'blogs':
+        appendTermLine(`
+          1. <em>Engineering Aspirations & Embedded Learning Insights</em> (LinkedIn)<br/>
+          2. <em>Hands-On Tech Education & Kynatium Labs Outreach</em> (LinkedIn)
+        `, 'info');
+        break;
+
       case 'contact':
         appendTermLine(`
           Email: <a href="mailto:abdullahaljehan.me@gmail.com" class="term-cmd">abdullahaljehan.me@gmail.com</a><br/>
-          LinkedIn: <a href="https://www.linkedin.com/in/abdullah-al-jehan" target="_blank">linkedin.com/in/abdullah-al-jehan</a>
+          LinkedIn: <a href="https://www.linkedin.com/in/abdullah-al-jehan" target="_blank">linkedin.com/in/abdullah-al-jehan</a><br/>
+          Location: Dhaka, Bangladesh
         `, 'info');
         break;
 
@@ -431,7 +472,7 @@
         break;
 
       default:
-        appendTermLine(`Command not found: '${escapeHTML(cmd)}'. Type <span class="term-cmd">help</span> for assistance.`, 'error');
+        appendTermLine(`Command not found: '${escapeHTML(cmd)}'. Type <span class="term-cmd">help</span> or <span class="term-cmd">neofetch</span>.`, 'error');
         break;
     }
   }
