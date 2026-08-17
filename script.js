@@ -1,7 +1,7 @@
 /* ═══════════════════════════════════════════════════════
    Portfolio JS — Abdullah Al Jehan
-   Interactive Cyber/Terminal Shell, Dynamic GitHub API, 
-   Particle Canvas, Code Showcase, & Smooth Micro-interactions
+   Typewriter Animation, Floating Terminal, Dynamic GitHub API, 
+   Progress Animation, Theme Management, & Toast Notifications
    ═══════════════════════════════════════════════════════ */
 
 (function () {
@@ -41,72 +41,98 @@
   }
 
   function setTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
     localStorage.setItem('theme', theme);
   }
 
-  // Initialize theme
   setTheme(getPreferredTheme());
 
   if (themeToggle) {
     themeToggle.addEventListener('click', function () {
-      const current = document.documentElement.getAttribute('data-theme');
-      const nextTheme = current === 'dark' ? 'light' : 'dark';
+      const isDark = document.documentElement.classList.contains('dark');
+      const nextTheme = isDark ? 'light' : 'dark';
       setTheme(nextTheme);
       showToast(`Switched to ${nextTheme} mode`, nextTheme === 'dark' ? '🌙' : '☀️');
     });
   }
 
-  // Listen for OS preference changes
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
-    if (!localStorage.getItem('theme')) {
-      setTheme(e.matches ? 'dark' : 'light');
+  // ─── Typewriter Subtitle Animation ──────────────────
+  const heroAnimatedSubtitle = document.getElementById('heroAnimatedSubtitle');
+  if (heroAnimatedSubtitle) {
+    const lines = [
+      "Engineering Aspirant · Systems & Embedded",
+      "C · Linux · IoT",
+      "Learning by Building, Breaking, and Iterating",
+      "Founding Advisor @ Kynatium Labs"
+    ];
+    let lineIdx = 0;
+    let charIdx = 0;
+    let isDeleting = false;
+    const typingSpeed = 50; // ms per char
+    const pauseTime = 900;  // 900ms pause after fully typing line
+
+    function typeWriter() {
+      const currentLine = lines[lineIdx];
+      
+      if (!isDeleting) {
+        charIdx++;
+        heroAnimatedSubtitle.textContent = currentLine.substring(0, charIdx);
+        
+        if (charIdx === currentLine.length) {
+          isDeleting = true;
+          setTimeout(typeWriter, pauseTime);
+          return;
+        }
+      } else {
+        charIdx--;
+        heroAnimatedSubtitle.textContent = currentLine.substring(0, charIdx);
+        
+        if (charIdx === 0) {
+          isDeleting = false;
+          lineIdx = (lineIdx + 1) % lines.length;
+        }
+      }
+      setTimeout(typeWriter, isDeleting ? 30 : typingSpeed);
     }
-  });
+    typeWriter();
+  }
 
   // ─── Mobile Menu ─────────────────────────────────────
   function toggleMenu() {
     const isOpen = navLinks.classList.contains('active');
     navLinks.classList.toggle('active');
     hamburger.classList.toggle('active');
-    mobileOverlay.classList.toggle('active');
     hamburger.setAttribute('aria-expanded', !isOpen);
     document.body.style.overflow = isOpen ? '' : 'hidden';
   }
 
   function closeMenu() {
-    navLinks.classList.remove('active');
-    hamburger.classList.remove('active');
-    mobileOverlay.classList.remove('active');
-    hamburger.setAttribute('aria-expanded', 'false');
+    if (navLinks) navLinks.classList.remove('active');
+    if (hamburger) {
+      hamburger.classList.remove('active');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
     document.body.style.overflow = '';
   }
 
   if (hamburger) hamburger.addEventListener('click', toggleMenu);
   if (mobileOverlay) mobileOverlay.addEventListener('click', closeMenu);
 
-  allNavLinks.forEach(function (link) {
+  allNavLinks.forEach((link) => {
     link.addEventListener('click', closeMenu);
   });
 
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && navLinks && navLinks.classList.contains('active')) {
-      closeMenu();
-    }
-  });
-
-  // ─── Navbar Scroll & Active Link ─────────────────────
+  // ─── Navbar Scroll & Active Link Tracking ─────────────
   const sections = document.querySelectorAll('section[id]');
 
   function handleNavScroll() {
     const scrollY = window.scrollY;
-    if (navbar) {
-      if (scrollY > 20) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
-    }
 
     if (backToTop) {
       if (scrollY > 400) {
@@ -116,15 +142,14 @@
       }
     }
 
-    // Active Section Tracking
     const scrollPosition = scrollY + 120;
-    sections.forEach(function (section) {
+    sections.forEach((section) => {
       const top = section.offsetTop;
       const height = section.offsetHeight;
       const id = section.getAttribute('id');
 
       if (scrollPosition >= top && scrollPosition < top + height) {
-        allNavLinks.forEach(function (link) {
+        allNavLinks.forEach((link) => {
           link.classList.remove('active');
           if (link.getAttribute('href') === '#' + id) {
             link.classList.add('active');
@@ -136,13 +161,14 @@
 
   window.addEventListener('scroll', handleNavScroll, { passive: true });
 
-  // ─── Reveal on Scroll ────────────────────────────────
+  // ─── Reveal on Scroll (IntersectionObserver) ────────
   if ('IntersectionObserver' in window) {
     const revealObserver = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
+      (entries) => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
+            entry.target.classList.add('is-visible');
             revealObserver.unobserve(entry.target);
           }
         });
@@ -150,154 +176,40 @@
       { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
     );
 
-    revealElements.forEach(function (el) {
-      revealObserver.observe(el);
-    });
+    revealElements.forEach((el) => revealObserver.observe(el));
   } else {
-    revealElements.forEach(function (el) {
+    revealElements.forEach((el) => {
       el.classList.add('visible');
+      el.classList.add('is-visible');
     });
   }
 
-  // Stagger delays
-  document.querySelectorAll('.skills-grid .skill-category').forEach((card, i) => {
-    card.style.transitionDelay = (i * 0.08) + 's';
-  });
-  document.querySelectorAll('.projects-grid .project-card').forEach((card, i) => {
-    card.style.transitionDelay = (i * 0.08) + 's';
-  });
-
-  // ─── Number Counter Animation for Highlights ─────────
-  const highlightCards = document.querySelectorAll('.about-highlights .highlight-card');
-  let hasAnimatedCounters = false;
-
-  function animateCounters() {
-    if (hasAnimatedCounters) return;
-    const aboutSection = document.getElementById('about');
-    if (!aboutSection) return;
-
-    const rect = aboutSection.getBoundingClientRect();
-    if (rect.top <= window.innerHeight * 0.8) {
-      hasAnimatedCounters = true;
-      highlightCards.forEach((card) => {
-        const targetAttr = card.getAttribute('data-target');
-        const suffix = card.getAttribute('data-suffix') || '';
-        const isFloat = card.getAttribute('data-is-float') === 'true';
-        const numberEl = card.querySelector('.highlight-number');
-        if (!numberEl || !targetAttr) return;
-
-        const targetNum = parseFloat(targetAttr);
-        let currentNum = 0;
-        const duration = 1500;
-        const startTime = performance.now();
-
-        function update(now) {
-          const elapsed = now - startTime;
-          const progress = Math.min(elapsed / duration, 1);
-          const easeProgress = 1 - Math.pow(1 - progress, 3);
-          currentNum = targetNum * easeProgress;
-
-          if (isFloat) {
-            numberEl.textContent = currentNum.toFixed(2) + suffix;
-          } else {
-            numberEl.textContent = Math.floor(currentNum) + suffix;
-          }
-
-          if (progress < 1) {
-            requestAnimationFrame(update);
-          } else {
-            numberEl.textContent = (isFloat ? targetNum.toFixed(2) : targetNum) + suffix;
-          }
-        }
-        requestAnimationFrame(update);
-      });
-    }
-  }
-
-  window.addEventListener('scroll', animateCounters, { passive: true });
-  animateCounters(); // Initial check
-
-  // ─── Code Showcase Tab Switcher ──────────────────────
-  const codeTabs = document.querySelectorAll('.code-editor-card .tab-btn');
-  const codeContents = document.querySelectorAll('.code-editor-card .code-tab');
-  const copyCodeBtn = document.getElementById('copyCodeBtn');
-
-  codeTabs.forEach((tab) => {
-    tab.addEventListener('click', () => {
-      codeTabs.forEach(t => t.classList.remove('active'));
-      codeContents.forEach(c => c.classList.remove('active'));
-
-      tab.classList.add('active');
-      const targetId = tab.getAttribute('data-tab');
-      const targetContent = document.getElementById(targetId);
-      if (targetContent) targetContent.classList.add('active');
-    });
-  });
-
-  if (copyCodeBtn) {
-    copyCodeBtn.addEventListener('click', () => {
-      const activeCode = document.querySelector('.code-tab.active');
-      if (activeCode) {
-        const text = activeCode.textContent;
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(text).then(() => {
-            showToast('Code snippet copied to clipboard!', '📋');
-          });
-        }
-      }
-    });
-  }
-
-  // ─── Project Category Filter ─────────────────────────
-  const filterBtns = document.querySelectorAll('.project-filter-container .filter-btn');
-  const projectCards = document.querySelectorAll('.projects-grid .project-card');
-
-  filterBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const filter = btn.getAttribute('data-filter');
-
-      projectCards.forEach((card) => {
-        const category = card.getAttribute('data-category');
-        if (filter === 'all' || category === filter) {
-          card.style.display = 'flex';
-          setTimeout(() => {
-            card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-          }, 50);
-        } else {
-          card.style.opacity = '0';
-          card.style.transform = 'translateY(10px)';
-          setTimeout(() => {
-            card.style.display = 'none';
-          }, 200);
-        }
-      });
-    });
-  });
-
-  // ─── Dynamic Live GitHub REST API Feed ──────────────
+  // ─── Live GitHub REST API Repository Feed ────────────
   const repoContainer = document.getElementById('githubRepoContainer');
 
   async function fetchGitHubRepos() {
     if (!repoContainer) return;
     try {
-      const response = await fetch('https://api.github.com/users/abdullahaljehan-me/repos?sort=updated&per_page=6');
-      if (!response.ok) throw new Error('GitHub API rate limit or network issue');
+      const response = await fetch('https://api.github.com/users/abdullahaljehan-me/repos?sort=updated&per_page=10');
+      if (!response.ok) throw new Error('GitHub API response error');
       const repos = await response.json();
 
-      if (!Array.isArray(repos) || repos.length === 0) return;
+      if (!Array.isArray(repos)) return;
+
+      // EXCLUDE profile README and skills-introduction-to-github as requested
+      const excludedNames = ['abdullahaljehan-me', 'skills-introduction-to-github'];
+      const filteredRepos = repos.filter(r => !excludedNames.includes(r.name.toLowerCase()));
 
       repoContainer.innerHTML = '';
-      
-      // Filter non-forks or top repos
-      const displayRepos = repos.slice(0, 6);
 
-      displayRepos.forEach((repo) => {
+      if (filteredRepos.length === 0) {
+        renderFallbackRepos();
+        return;
+      }
+
+      filteredRepos.slice(0, 6).forEach((repo) => {
         const card = document.createElement('div');
-        card.className = 'repo-card';
+        card.className = 'repo-card card-surface lift';
         
         const langColor = getLangColor(repo.language);
         const description = repo.description || 'Public repository by Abdullah Al Jehan';
@@ -318,8 +230,7 @@
         repoContainer.appendChild(card);
       });
     } catch (err) {
-      console.warn('GitHub API fetch fallback:', err);
-      // Fallback static cards if offline or rate limited
+      console.warn('GitHub API fetch error, using fallback:', err);
       renderFallbackRepos();
     }
   }
@@ -344,27 +255,27 @@
   function renderFallbackRepos() {
     if (!repoContainer) return;
     repoContainer.innerHTML = `
-      <div class="repo-card">
+      <div class="repo-card card-surface lift">
         <h4 class="repo-name"><a href="https://github.com/abdullahaljehan-me/contact-management-system-c" target="_blank">contact-management-system-c</a></h4>
-        <p class="repo-desc">A simple menu-driven Contact Management System written in C using binary file handling.</p>
+        <p class="repo-desc">Menu-driven Contact Management System written in C using binary file handling.</p>
         <div class="repo-meta">
           <span class="repo-lang"><span class="repo-lang-dot" style="background:#555555"></span> C</span>
           <span>★ 0</span>
           <span>⑂ 0</span>
         </div>
       </div>
-      <div class="repo-card">
+      <div class="repo-card card-surface lift">
         <h4 class="repo-name"><a href="https://github.com/abdullahaljehan-me/portfolio" target="_blank">portfolio</a></h4>
-        <p class="repo-desc">Personal portfolio site — terminal/cyber aesthetic with live GitHub REST API & CLI drawer.</p>
+        <p class="repo-desc">Personal portfolio site — OKLCH design system, live GitHub REST API & CLI drawer.</p>
         <div class="repo-meta">
           <span class="repo-lang"><span class="repo-lang-dot" style="background:#e34c26"></span> HTML</span>
           <span>★ 0</span>
           <span>⑂ 0</span>
         </div>
       </div>
-      <div class="repo-card">
+      <div class="repo-card card-surface lift">
         <h4 class="repo-name"><a href="https://github.com/Kynatium-Labs/workshop_obstracle_avoiding_robot" target="_blank">workshop_obstracle_avoiding_robot</a></h4>
-        <p class="repo-desc">Autonomous obstacle avoiding robot C++ firmware built for Kynatium Labs hardware workshops.</p>
+        <p class="repo-desc">Autonomous obstacle avoiding robot C++ firmware for Kynatium Labs workshops.</p>
         <div class="repo-meta">
           <span class="repo-lang"><span class="repo-lang-dot" style="background:#f34b7d"></span> C++</span>
           <span>★ 0</span>
@@ -376,7 +287,7 @@
 
   fetchGitHubRepos();
 
-  // ─── Particle Canvas Network ─────────────────────────
+  // ─── Particle Canvas Background Animation ────────────
   const canvas = document.getElementById('particleCanvas');
   if (canvas && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const ctx = canvas.getContext('2d');
@@ -389,14 +300,14 @@
     });
 
     const particles = [];
-    const particleCount = Math.min(Math.floor(width / 25), 45);
+    const particleCount = Math.min(Math.floor(width / 30), 35);
 
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
         radius: Math.random() * 1.5 + 1
       });
     }
@@ -404,9 +315,9 @@
     function renderParticles() {
       ctx.clearRect(0, 0, width, height);
 
-      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-      const particleColor = isDark ? 'rgba(129, 140, 248, 0.4)' : 'rgba(79, 70, 229, 0.25)';
-      const lineColor = isDark ? 'rgba(129, 140, 248, 0.08)' : 'rgba(79, 70, 229, 0.06)';
+      const isDark = document.documentElement.classList.contains('dark');
+      const particleColor = isDark ? 'rgba(56, 189, 248, 0.35)' : 'rgba(14, 165, 233, 0.25)';
+      const lineColor = isDark ? 'rgba(56, 189, 248, 0.06)' : 'rgba(14, 165, 233, 0.05)';
 
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
@@ -427,7 +338,7 @@
           const dy = p.y - p2.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
 
-          if (dist < 110) {
+          if (dist < 100) {
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
@@ -442,10 +353,9 @@
     requestAnimationFrame(renderParticles);
   }
 
-  // ─── Interactive CLI Terminal Drawer Component ──────
+  // ─── Floating Tiny Terminal Button & Drawer ──────────
   const terminalDrawer = document.getElementById('terminalDrawer');
-  const cliToggleBtn = document.getElementById('cliToggleBtn');
-  const heroCliBtn = document.getElementById('heroCliBtn');
+  const floatingTermBtn = document.getElementById('floatingTermBtn');
   const termCloseBtn = document.getElementById('termCloseBtn');
   const termMinBtn = document.getElementById('termMinBtn');
   const termMaxBtn = document.getElementById('termMaxBtn');
@@ -456,7 +366,6 @@
   function openTerminal() {
     if (terminalDrawer) {
       terminalDrawer.classList.add('active');
-      terminalDrawer.classList.remove('minimized');
       if (terminalInput) terminalInput.focus();
     }
   }
@@ -465,8 +374,16 @@
     if (terminalDrawer) terminalDrawer.classList.remove('active');
   }
 
-  if (cliToggleBtn) cliToggleBtn.addEventListener('click', openTerminal);
-  if (heroCliBtn) heroCliBtn.addEventListener('click', openTerminal);
+  if (floatingTermBtn) {
+    floatingTermBtn.addEventListener('click', () => {
+      if (terminalDrawer.classList.contains('active')) {
+        closeTerminal();
+      } else {
+        openTerminal();
+      }
+    });
+  }
+
   if (termCloseBtn) termCloseBtn.addEventListener('click', closeTerminal);
   if (termMinBtn) termMinBtn.addEventListener('click', () => terminalDrawer.classList.toggle('minimized'));
   if (termMaxBtn) termMaxBtn.addEventListener('click', () => terminalDrawer.classList.toggle('maximized'));
@@ -476,9 +393,9 @@
     }
   });
 
-  // Shortcut Listener: Ctrl+~ or Cmd+K
+  // Shortcut Listener: Ctrl+~
   document.addEventListener('keydown', (e) => {
-    if ((e.ctrlKey && e.key === '`') || (e.metaKey && e.key === 'k')) {
+    if (e.ctrlKey && e.key === '`') {
       e.preventDefault();
       if (terminalDrawer.classList.contains('active')) {
         closeTerminal();
@@ -488,7 +405,7 @@
     }
   });
 
-  // CLI Command Interpreter
+  // CLI Command Parser
   const commandHistory = [];
   let historyIndex = -1;
 
@@ -531,55 +448,48 @@
   }
 
   function processCLICommand(cmd) {
-    const parts = cmd.split(' ');
-    const mainCmd = parts[0];
+    const mainCmd = cmd.split(' ')[0];
 
     switch (mainCmd) {
       case 'help':
         appendTermLine(`
           Available Commands:<br/>
-          • <span class="term-cmd">bio</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;— View Jehan's summary & engineering vision<br/>
-          • <span class="term-cmd">skills</span> &nbsp;&nbsp;&nbsp;— Print programming languages & hardware tools<br/>
-          • <span class="term-cmd">projects</span> — List featured projects & live repositories<br/>
+          • <span class="term-cmd">bio</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;— View Jehan's quote & focus statement<br/>
+          • <span class="term-cmd">skills</span> &nbsp;&nbsp;&nbsp;— Display progress levels & learning focus<br/>
+          • <span class="term-cmd">projects</span> — List active project repositories<br/>
           • <span class="term-cmd">contact</span> &nbsp;— Show email address & social profiles<br/>
           • <span class="term-cmd">github</span> &nbsp;&nbsp;— Open GitHub profile in new tab<br/>
-          • <span class="term-cmd">theme</span> &nbsp;&nbsp;&nbsp;— Toggle light/dark theme<br/>
-          • <span class="term-cmd">clear</span> &nbsp;&nbsp;&nbsp;— Clear the console screen<br/>
-          • <span class="term-cmd">date</span> &nbsp;&nbsp;&nbsp;&nbsp;— Display system timestamp
+          • <span class="term-cmd">theme</span> &nbsp;&nbsp;&nbsp;— Toggle dark/light theme<br/>
+          • <span class="term-cmd">clear</span> &nbsp;&nbsp;&nbsp;— Clear terminal output<br/>
+          • <span class="term-cmd">date</span> &nbsp;&nbsp;&nbsp;&nbsp;— System timestamp
         `, 'info');
         break;
 
       case 'bio':
         appendTermLine(`
-          <strong>Abdullah Al Jehan (Jehan)</strong><br/>
-          Location: Dhaka, Bangladesh | Role: Founding Advisor @ Kynatium Labs<br/>
-          Focus: Embedded Systems, C Programming, Linux Systems, IoT, & Robotics.<br/>
-          Philosophy: <em>"Build, break, and iterate until the system is robust."</em>
+          "I'm at the start — learning C from scratch, running Linux daily, and figuring out how computers work below the surface. Embedded systems, microcontrollers, and hardware/software integration."
         `, 'output');
         break;
 
       case 'skills':
         appendTermLine(`
-          [Languages] C, C++ (Arduino), HTML5, CSS3, JavaScript<br/>
-          [Systems] &nbsp;&nbsp;Linux (Debian/Ubuntu), Bash, Git, GCC, Make<br/>
-          [Hardware] &nbsp;Arduino, HC-SR04 Sensors, L298N Motors, PWM Servo Control
+          C Language: 75% | C++ / Arduino: 68% | Linux & Bash: 80%<br/>
+          Hardware & Sensors: 65% | Motor Drivers: 62% | Git & GitHub: 75%
         `, 'success');
         break;
 
       case 'projects':
         appendTermLine(`
-          1. <strong>Contact Management System</strong> [C, Binary Files, CLI]<br/>
+          1. <strong>Contact Management System</strong> [C, Binary Files]<br/>
           2. <strong>Obstacle Avoiding Robot</strong> [C++, Ultrasonic, Motors]<br/>
-          3. <strong>Arduino Fundamentals Workshop</strong> [Curriculum, Kynatium Labs]<br/>
-          4. <strong>Personal Portfolio Site</strong> [HTML/CSS/JS, REST API, CLI]
+          3. <strong>Personal Portfolio Website</strong> [HTML, OKLCH CSS, JS]
         `, 'output');
         break;
 
       case 'contact':
         appendTermLine(`
           Email: <a href="mailto:abdullahaljehan.me@gmail.com" class="term-cmd">abdullahaljehan.me@gmail.com</a><br/>
-          GitHub: <a href="https://github.com/abdullahaljehan-me" target="_blank">github.com/abdullahaljehan-me</a><br/>
-          LinkedIn: <a href="https://www.linkedin.com/in/abdullah-al-jehan" target="_blank">in/abdullah-al-jehan</a>
+          GitHub: <a href="https://github.com/abdullahaljehan-me" target="_blank">github.com/abdullahaljehan-me</a>
         `, 'info');
         break;
 
@@ -590,7 +500,7 @@
 
       case 'theme':
         if (themeToggle) themeToggle.click();
-        appendTermLine('Theme toggled successfully.', 'success');
+        appendTermLine('Theme toggled.', 'success');
         break;
 
       case 'clear':
@@ -601,17 +511,13 @@
         appendTermLine(new Date().toString(), 'info');
         break;
 
-      case 'sudo':
-        appendTermLine('Permission denied: You are in guest shell mode. ⚡', 'error');
-        break;
-
       default:
         appendTermLine(`Command not found: '${escapeHTML(cmd)}'. Type <span class="term-cmd">help</span> for assistance.`, 'error');
         break;
     }
   }
 
-  // ─── Copy Email Handler ──────────────────────────────
+  // ─── Copy Email Click ────────────────────────────────
   const emailLink = document.getElementById('emailLink');
   if (emailLink) {
     emailLink.addEventListener('click', function (e) {
@@ -628,7 +534,7 @@
     });
   }
 
-  // ─── Contact Form Submission Feedback ────────────────
+  // ─── Contact Form ───────────────────────────────────
   if (contactForm) {
     contactForm.addEventListener('submit', function (e) {
       const name = document.getElementById('name').value.trim();
@@ -640,12 +546,11 @@
         showToast('Please fill in all required fields.', '⚠️');
         return;
       }
-
       showToast('Sending message...', '🚀');
     });
   }
 
-  // ─── Initial Nav Check ──────────────────────────────
+  // Initial check
   handleNavScroll();
 
 })();
