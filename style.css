@@ -210,26 +210,20 @@ button {
   gap: 16px;
 }
 
-.preloader-avatar-spinner {
-  position: relative;
-  width: 68px;
-  height: 68px;
-  border-radius: 50%;
-  padding: 3px;
-  background: conic-gradient(from 0deg, var(--primary), transparent 80%);
-  animation: spin 1s linear infinite;
+.preloader-gear-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  color: var(--primary);
+  filter: drop-shadow(0 0 12px color-mix(in oklab, var(--primary) 60%, transparent));
+  animation: gear-spin 2.4s linear infinite;
 }
 
-.preloader-avatar {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
+@keyframes gear-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .preloader-text {
