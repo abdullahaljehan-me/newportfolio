@@ -1,11 +1,30 @@
 /* ═══════════════════════════════════════════════════════
    Portfolio JS — Abdullah Al Jehan
-   Typewriter Animation, Floating Terminal, Dynamic GitHub API, 
-   Progress Animation, Theme Management, & Toast Notifications
+   Preloader, Typewriter Subtitle, Floating Terminal Drawer,
+   Dynamic GitHub API, Theme Management & Toast System
    ═══════════════════════════════════════════════════════ */
 
 (function () {
   'use strict';
+
+  // ─── Preloader Loader Screen ─────────────────────────
+  const preloader = document.getElementById('skeletonPreloader');
+  function hidePreloader() {
+    if (preloader) {
+      preloader.classList.add('fade-out');
+      setTimeout(() => {
+        preloader.style.display = 'none';
+      }, 500);
+    }
+  }
+
+  if (document.readyState === 'complete') {
+    hidePreloader();
+  } else {
+    window.addEventListener('load', hidePreloader);
+    // Safety fallback
+    setTimeout(hidePreloader, 1500);
+  }
 
   // ─── DOM Elements ────────────────────────────────────
   const navbar = document.getElementById('navbar');
@@ -74,8 +93,8 @@
     let lineIdx = 0;
     let charIdx = 0;
     let isDeleting = false;
-    const typingSpeed = 50; // ms per char
-    const pauseTime = 900;  // 900ms pause after fully typing line
+    const typingSpeed = 45;
+    const pauseTime = 900;
 
     function typeWriter() {
       const currentLine = lines[lineIdx];
@@ -98,7 +117,7 @@
           lineIdx = (lineIdx + 1) % lines.length;
         }
       }
-      setTimeout(typeWriter, isDeleting ? 30 : typingSpeed);
+      setTimeout(typeWriter, isDeleting ? 25 : typingSpeed);
     }
     typeWriter();
   }
@@ -196,7 +215,6 @@
 
       if (!Array.isArray(repos)) return;
 
-      // EXCLUDE profile README and skills-introduction-to-github as requested
       const excludedNames = ['abdullahaljehan-me', 'skills-introduction-to-github'];
       const filteredRepos = repos.filter(r => !excludedNames.includes(r.name.toLowerCase()));
 
@@ -393,7 +411,6 @@
     }
   });
 
-  // Shortcut Listener: Ctrl+~
   document.addEventListener('keydown', (e) => {
     if (e.ctrlKey && e.key === '`') {
       e.preventDefault();
@@ -405,7 +422,6 @@
     }
   });
 
-  // CLI Command Parser
   const commandHistory = [];
   let historyIndex = -1;
 
@@ -454,8 +470,8 @@
       case 'help':
         appendTermLine(`
           Available Commands:<br/>
-          • <span class="term-cmd">bio</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;— View Jehan's quote & focus statement<br/>
-          • <span class="term-cmd">skills</span> &nbsp;&nbsp;&nbsp;— Display progress levels & learning focus<br/>
+          • <span class="term-cmd">bio</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;— View Jehan's personal background<br/>
+          • <span class="term-cmd">skills</span> &nbsp;&nbsp;&nbsp;— Display technical skills & progression<br/>
           • <span class="term-cmd">projects</span> — List active project repositories<br/>
           • <span class="term-cmd">contact</span> &nbsp;— Show email address & social profiles<br/>
           • <span class="term-cmd">github</span> &nbsp;&nbsp;— Open GitHub profile in new tab<br/>
@@ -467,14 +483,15 @@
 
       case 'bio':
         appendTermLine(`
-          "I'm at the start — learning C from scratch, running Linux daily, and figuring out how computers work below the surface. Embedded systems, microcontrollers, and hardware/software integration."
+          "Hi, I’m Jehan! Ambitious science student gearing up for engineering. Deep dive into Embedded systems, IoT, C programming, and Linux."
         `, 'output');
         break;
 
       case 'skills':
         appendTermLine(`
-          C Language: 75% | C++ / Arduino: 68% | Linux & Bash: 80%<br/>
-          Hardware & Sensors: 65% | Motor Drivers: 62% | Git & GitHub: 75%
+          Languages: HTML5/CSS3 (80%), C (65%), C++ (45%)<br/>
+          Systems: Git/GitHub (75%), Linux (70%), Bash (60%)<br/>
+          Embedded: Arduino (55%), Sensors (50%), Hardware-Software Integration (45%)
         `, 'success');
         break;
 
@@ -482,14 +499,14 @@
         appendTermLine(`
           1. <strong>Contact Management System</strong> [C, Binary Files]<br/>
           2. <strong>Obstacle Avoiding Robot</strong> [C++, Ultrasonic, Motors]<br/>
-          3. <strong>Personal Portfolio Website</strong> [HTML, OKLCH CSS, JS]
+          3. <strong>Personal Portfolio Site</strong> [HTML5, OKLCH CSS, JS]
         `, 'output');
         break;
 
       case 'contact':
         appendTermLine(`
           Email: <a href="mailto:abdullahaljehan.me@gmail.com" class="term-cmd">abdullahaljehan.me@gmail.com</a><br/>
-          GitHub: <a href="https://github.com/abdullahaljehan-me" target="_blank">github.com/abdullahaljehan-me</a>
+          LinkedIn: <a href="https://www.linkedin.com/in/abdullah-al-jehan" target="_blank">linkedin.com/in/abdullah-al-jehan</a>
         `, 'info');
         break;
 
@@ -550,7 +567,6 @@
     });
   }
 
-  // Initial check
   handleNavScroll();
 
 })();
