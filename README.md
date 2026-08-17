@@ -21,6 +21,7 @@ HTML5 · CSS3 · Vanilla JavaScript · Hosted on GitHub Pages
 ├── index.html
 ├── script.js
 ├── style.css
+├── README.md
 └── assets/
 ```
 
