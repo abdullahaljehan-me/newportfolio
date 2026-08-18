@@ -36,7 +36,8 @@ Open `index.html` in a browser, or serve it locally. Personal details (GitHub us
 
 ## Contact
 
-**Abdullah Al Jehan** — Founding Advisor, Kynatium Labs · <br>Dhaka, Bangladesh
+**Abdullah Al Jehan**
+<br>Founding Advisor, Kynatium Labs · <br>Dhaka, Bangladesh
 <br>Email: abdullahaljehan.me@gmail.com
 <br>GitHub: [@abdullahaljehan-me](https://github.com/abdullahaljehan-me)
 <br>LinkedIn: [abdullah-al-jehan](https://www.linkedin.com/in/abdullah-al-jehan)
