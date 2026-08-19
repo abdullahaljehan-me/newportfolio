@@ -918,7 +918,7 @@ html.dark .theme-toggle .icon-moon,
    ═══════════════════════════════════════════════════════ */
 .card-thumbnail-box {
   width: 100%;
-  height: 160px;
+  height: 220px;
   background: var(--secondary);
   border-bottom: 1px solid var(--border);
   overflow: hidden;
@@ -928,10 +928,50 @@ html.dark .theme-toggle .icon-moon,
   justify-content: center;
 }
 
+/* ═══════════════════════════════════════════════════════
+   UNIFIED CARD HEIGHTS & ALIGNMENT
+   ═══════════════════════════════════════════════════════ */
+
+/* Ensure all card types have consistent structure */
+.project-card,
+.research-card,
+.blog-card,
+.cert-card,
+.honor-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Make card bodies fill remaining space */
+.project-card-body,
+.research-card-body,
+.blog-card-body,
+.cert-card-body,
+.honor-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure content stretches properly */
+.blog-excerpt,
+.research-desc,
+.honor-desc,
+.project-description {
+  flex: 1;
+}
+
+/* Keep buttons/links at bottom */
+.blog-read-link,
+.project-icon-link {
+  margin-top: auto;
+}
+
 .card-banner-img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
   transition: transform 0.35s ease;
 }
@@ -1029,8 +1069,9 @@ html.dark .theme-toggle .icon-moon,
    RESEARCH, BLOGS, CERTIFICATIONS & HONORS SECTIONS
    ═══════════════════════════════════════════════════════ */
 .research-grid {
-  max-width: 880px;
-  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
 }
 
 .research-card {
@@ -1051,6 +1092,7 @@ html.dark .theme-toggle .icon-moon,
   padding: 4px 12px;
   border-radius: var(--radius-sm);
   display: inline-block;
+  width: fit-content;
   margin-bottom: 12px;
   border: 1px solid var(--border);
   font-weight: 600;
@@ -1069,7 +1111,7 @@ html.dark .theme-toggle .icon-moon,
 
 .blogs-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
 
@@ -1097,6 +1139,7 @@ html.dark .theme-toggle .icon-moon,
   color: var(--primary);
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
+  width: fit-content;
   font-weight: 600;
 }
 .blog-date {
@@ -1174,7 +1217,7 @@ html.dark .theme-toggle .icon-moon,
 
 .honors-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
 
@@ -1196,6 +1239,7 @@ html.dark .theme-toggle .icon-moon,
   border: 1px solid var(--border);
   margin-bottom: 8px;
   display: inline-block;
+  width: fit-content;
   font-weight: 600;
 }
 .honor-title {
@@ -1788,8 +1832,9 @@ html.dark .theme-toggle .icon-moon,
   .projects-grid,
   .blogs-grid,
   .cert-grid,
-  .honors-grid {
-    grid-template-columns: 1fr;
+  .honors-grid,
+  .research-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
   .lb-grid {
     grid-template-columns: 1fr;
@@ -1798,9 +1843,24 @@ html.dark .theme-toggle .icon-moon,
     grid-template-columns: 1fr 1fr;
     gap: 30px;
   }
+  .card-thumbnail-box {
+    height: 140px;
+  }
 }
 
 @media (max-width: 768px) {
+  .skills-progress-grid,
+  .projects-grid,
+  .blogs-grid,
+  .cert-grid,
+  .honors-grid,
+  .research-grid {
+    grid-template-columns: 1fr;
+  }
+  .card-thumbnail-box {
+    height: 180px;
+  }
+
   .hamburger {
     display: flex;
   }
@@ -1830,5 +1890,12 @@ html.dark .theme-toggle .icon-moon,
     flex-direction: column;
     gap: 12px;
     text-align: center;
+  }
+}
+
+/* Small Mobile: Adjust thumbnail */
+@media (max-width: 480px) {
+  .card-thumbnail-box {
+    height: 160px;
   }
 }
