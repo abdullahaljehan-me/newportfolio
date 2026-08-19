@@ -2219,3 +2219,10 @@ TECHNICAL BREAKDOWN MODAL
 .breakdown-modal .modal-body li {
   margin-bottom: 6px;
 }
+
+/* ═══════════════════════════════════════════════════════
+   HONORS CERTIFICATE FIX
+   ═══════════════════════════════════════════════════════ */
+.honor-card .card-banner-img {
+  object-fit: cover;
+}
