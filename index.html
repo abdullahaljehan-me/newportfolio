@@ -974,39 +974,157 @@
           </p>
         </div>
 
-        <div class="research-grid">
-          <div class="research-card card-surface lift reveal">
+        <div class="research-grid" id="research-grid">
+          <!-- Card 1 (Visible) -->
+          <article class="research-card card-surface lift reveal">
             <div class="card-thumbnail-box">
               <div class="thumbnail-placeholder">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="36"
-                  height="36"
+                  width="32"
+                  height="32"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  stroke-width="1.5"
+                  stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
                 >
-                  <circle cx="12" cy="12" r="10" />
-                  <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
-                  <path d="M2 12h20" />
+                  <path
+                    d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                  ></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
                 </svg>
                 <span>Research Media Thumbnail</span>
               </div>
             </div>
             <div class="research-card-body">
-              <div class="research-badge">Coming soon</div>
-              <h3 class="research-title">Draft Title</h3>
+              <span class="research-badge">Draft</span>
+              <h3 class="research-title">IoT Sensor Network Optimization</h3>
               <p class="research-desc">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto
-                necessitatibus non provident nisi voluptates, amet doloremque
-                dolorem eos, veniam quos sunt fuga ducimus modi? Fugit tenetur
-                repellat minima expedita non!
+                Exploring low-power communication protocols and data aggregation
+                techniques for scalable embedded sensor networks in agricultural
+                monitoring.
               </p>
             </div>
-          </div>
+          </article>
+
+          <!-- Card 2 (Visible) -->
+          <article class="research-card card-surface lift reveal">
+            <div class="card-thumbnail-box">
+              <div class="thumbnail-placeholder">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                  ></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                <span>Research Media Thumbnail</span>
+              </div>
+            </div>
+            <div class="research-card-body">
+              <span class="research-badge">In Progress</span>
+              <h3 class="research-title">Edge ML on Microcontrollers</h3>
+              <p class="research-desc">
+                Feasibility study on deploying lightweight machine learning
+                models (TinyML) on resource-constrained ARM Cortex-M4
+                microcontrollers.
+              </p>
+            </div>
+          </article>
+
+          <!-- Card 3 (Visible) -->
+          <article class="research-card card-surface lift reveal">
+            <div class="card-thumbnail-box">
+              <div class="thumbnail-placeholder">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                  ></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                <span>Research Media Thumbnail</span>
+              </div>
+            </div>
+            <div class="research-card-body">
+              <span class="research-badge">Draft</span>
+              <h3 class="research-title">Real-Time RTOS Task Scheduling</h3>
+              <p class="research-desc">
+                Analyzing priority inversion and deadlock prevention strategies
+                in FreeRTOS for safety-critical automotive embedded systems.
+              </p>
+            </div>
+          </article>
+
+          <!-- Card 4 (Hidden) -->
+          <article class="research-card card-surface lift hidden-card">
+            <div class="card-thumbnail-box">
+              <div class="thumbnail-placeholder"><span>Coming Soon</span></div>
+            </div>
+            <div class="research-card-body">
+              <span class="research-badge">Planned</span>
+              <h3 class="research-title">Draft Research Title 04</h3>
+              <p class="research-desc">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto
+                necessitatibus non provident nisi voluptates, amet doloremque.
+              </p>
+            </div>
+          </article>
+
+          <!-- Card 5 (Hidden) -->
+          <article class="research-card card-surface lift hidden-card">
+            <div class="card-thumbnail-box">
+              <div class="thumbnail-placeholder"><span>Coming Soon</span></div>
+            </div>
+            <div class="research-card-body">
+              <span class="research-badge">Planned</span>
+              <h3 class="research-title">Draft Research Title 05</h3>
+              <p class="research-desc">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto
+                necessitatibus non provident nisi voluptates, amet doloremque.
+              </p>
+            </div>
+          </article>
+        </div>
+
+        <div style="text-align: center">
+          <button
+            class="btn btn-outline btn-sm view-all-btn"
+            data-target="research-grid"
+            data-expand-text="View all publications"
+            data-collapse-text="Show fewer publications"
+          >
+            View all publications <span class="arrow">↓</span>
+          </button>
         </div>
       </div>
     </section>
@@ -1024,73 +1142,167 @@
           </p>
         </div>
 
-        <div class="blogs-grid">
+        <div class="blogs-grid" id="blogs-grid">
+          <!-- Card 1 (Visible) -->
           <article class="blog-card card-surface lift reveal">
             <div class="card-thumbnail-box">
               <img
                 src="assets/blogs/linkedin_linux_kubuntu.png"
-                alt="Blog Thumbnail"
+                alt="Leveling Up My Linux Journey Thumbnail"
                 class="card-banner-img"
               />
             </div>
             <div class="blog-card-body">
               <div class="blog-card-header">
                 <span class="blog-platform-tag">LinkedIn</span>
-                <span class="blog-date">Linux, Kubuntu</span>
+                <time class="blog-date" datetime="2025-01-15"
+                  >Jan 15, 2025</time
+                >
               </div>
               <h3 class="blog-title">
                 Leveling Up My Linux Journey: From Zorin OS to Kubuntu
               </h3>
+              <div class="project-tech" style="margin-bottom: 12px">
+                <span class="tech-tag">Linux</span
+                ><span class="tech-tag">Kubuntu</span>
+              </div>
               <p class="blog-excerpt">
                 My journey from Zorin OS 18 to Kubuntu 26.04 LTS, exploring KDE
-                Plasma, Wayland, Zsh, and Ghostty to build a faster, more
-                customizable, and developer-focused Linux workflow.
+                Plasma, Wayland, Zsh, and Ghostty to build a faster,
+                developer-focused Linux workflow.
               </p>
               <a
                 href="https://www.linkedin.com/feed/update/urn:li:activity:7462517434445377537/"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="blog-read-link"
+                >Read on LinkedIn <span>→</span></a
               >
-                Read on LinkedIn &rarr;
-              </a>
             </div>
           </article>
 
+          <!-- Card 2 (Visible) -->
           <article class="blog-card card-surface lift reveal">
             <div class="card-thumbnail-box">
               <img
                 src="assets/blogs/linkedin_linux_zorinos.jpg"
-                alt="Blog Thumbnail"
+                alt="From Windows to Linux Thumbnail"
                 class="card-banner-img"
               />
             </div>
             <div class="blog-card-body">
               <div class="blog-card-header">
                 <span class="blog-platform-tag">LinkedIn</span>
-                <span class="blog-date">Linux, Zorin OS</span>
+                <time class="blog-date" datetime="2024-11-20"
+                  >Nov 20, 2024</time
+                >
               </div>
               <h3 class="blog-title">
                 From Windows to Linux: My First Steps with Zorin OS 18
               </h3>
+              <div class="project-tech" style="margin-bottom: 12px">
+                <span class="tech-tag">Linux</span
+                ><span class="tech-tag">Zorin OS</span>
+              </div>
               <p class="blog-excerpt">
                 My first hands-on Linux journey with Zorin OS 18, exploring
                 package management, system structure, and workflow differences
-                from Windows. This post reflects my early experience discovering
-                Linux as a clean, focused, and developer-friendly environment
-                for learning programming and understanding how operating systems
-                work.
+                from Windows.
               </p>
               <a
                 href="https://www.linkedin.com/feed/update/urn:li:activity:7408962979909558273/"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="blog-read-link"
+                >Read on LinkedIn <span>→</span></a
               >
-                Read on LinkedIn &rarr;
-              </a>
             </div>
           </article>
+
+          <!-- Card 3 (Visible) -->
+          <article class="blog-card card-surface lift reveal">
+            <div class="card-thumbnail-box">
+              <div class="thumbnail-placeholder">
+                <span>Article Thumbnail</span>
+              </div>
+            </div>
+            <div class="blog-card-body">
+              <div class="blog-card-header">
+                <span class="blog-platform-tag">LinkedIn</span>
+                <time class="blog-date" datetime="2024-09-10"
+                  >Sep 10, 2024</time
+                >
+              </div>
+              <h3 class="blog-title">
+                Demystifying C Pointers and Memory Management
+              </h3>
+              <div class="project-tech" style="margin-bottom: 12px">
+                <span class="tech-tag">C</span
+                ><span class="tech-tag">Embedded</span>
+              </div>
+              <p class="blog-excerpt">
+                A beginner-friendly breakdown of how pointers, memory
+                allocation, and file I/O work under the hood in C programming
+                for embedded systems.
+              </p>
+              <a
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="blog-read-link"
+                >Read on LinkedIn <span>→</span></a
+              >
+            </div>
+          </article>
+
+          <!-- Card 4 (Hidden) -->
+          <article class="blog-card card-surface lift hidden-card">
+            <div class="card-thumbnail-box">
+              <div class="thumbnail-placeholder"><span>Coming Soon</span></div>
+            </div>
+            <div class="blog-card-body">
+              <div class="blog-card-header">
+                <span class="blog-platform-tag">Draft</span
+                ><time class="blog-date">TBD</time>
+              </div>
+              <h3 class="blog-title">Draft Blog Title 04</h3>
+              <p class="blog-excerpt">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto
+                necessitatibus non provident nisi voluptates.
+              </p>
+              <a href="#" class="blog-read-link">Read More <span>→</span></a>
+            </div>
+          </article>
+
+          <!-- Card 5 (Hidden) -->
+          <article class="blog-card card-surface lift hidden-card">
+            <div class="card-thumbnail-box">
+              <div class="thumbnail-placeholder"><span>Coming Soon</span></div>
+            </div>
+            <div class="blog-card-body">
+              <div class="blog-card-header">
+                <span class="blog-platform-tag">Draft</span
+                ><time class="blog-date">TBD</time>
+              </div>
+              <h3 class="blog-title">Draft Blog Title 05</h3>
+              <p class="blog-excerpt">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto
+                necessitatibus non provident nisi voluptates.
+              </p>
+              <a href="#" class="blog-read-link">Read More <span>→</span></a>
+            </div>
+          </article>
+        </div>
+
+        <div style="text-align: center">
+          <button
+            class="btn btn-outline btn-sm view-all-btn"
+            data-target="blogs-grid"
+            data-expand-text="Read more articles"
+            data-collapse-text="Show fewer articles"
+          >
+            Read more articles <span class="arrow">↓</span>
+          </button>
         </div>
       </div>
     </section>
@@ -1108,26 +1320,11 @@
           </p>
         </div>
 
-        <div class="cert-grid">
-          <div class="cert-card card-surface lift reveal">
+        <div class="cert-grid" id="cert-grid">
+          <!-- Card 1 (Visible) -->
+          <article class="cert-card card-surface lift reveal">
             <div class="card-thumbnail-box">
               <div class="thumbnail-placeholder">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="32"
-                  height="32"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path
-                    d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-                  />
-                  <polyline points="14 2 14 8 20 8" />
-                </svg>
                 <span>Certificate Thumbnail</span>
               </div>
             </div>
@@ -1139,27 +1336,12 @@
               <p class="cert-org">Harvard University (edX)</p>
               <span class="cert-status">In Progress / Planned</span>
             </div>
-          </div>
+          </article>
 
-          <div class="cert-card card-surface lift reveal">
+          <!-- Card 2 (Visible) -->
+          <article class="cert-card card-surface lift reveal">
             <div class="card-thumbnail-box">
               <div class="thumbnail-placeholder">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="32"
-                  height="32"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path
-                    d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-                  />
-                  <polyline points="14 2 14 8 20 8" />
-                </svg>
                 <span>Certificate Thumbnail</span>
               </div>
             </div>
@@ -1169,27 +1351,12 @@
               <p class="cert-org">Harvard University (edX)</p>
               <span class="cert-status">In Progress / Planned</span>
             </div>
-          </div>
+          </article>
 
-          <div class="cert-card card-surface lift reveal">
+          <!-- Card 3 (Visible) -->
+          <article class="cert-card card-surface lift reveal">
             <div class="card-thumbnail-box">
               <div class="thumbnail-placeholder">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="32"
-                  height="32"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path
-                    d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-                  />
-                  <polyline points="14 2 14 8 20 8" />
-                </svg>
                 <span>Certificate Thumbnail</span>
               </div>
             </div>
@@ -1199,7 +1366,44 @@
               <p class="cert-org">3D Modeling & Mechanical Design</p>
               <span class="cert-status">In Progress / Planned</span>
             </div>
-          </div>
+          </article>
+
+          <!-- Card 4 (Hidden) -->
+          <article class="cert-card card-surface lift hidden-card">
+            <div class="card-thumbnail-box">
+              <div class="thumbnail-placeholder"><span>Coming Soon</span></div>
+            </div>
+            <div class="cert-card-body">
+              <span class="cert-badge">Planned</span>
+              <h3 class="cert-title">FreeRTOS Essentials</h3>
+              <p class="cert-org">Embedded Systems Training</p>
+              <span class="cert-status">Planned for 2026</span>
+            </div>
+          </article>
+
+          <!-- Card 5 (Hidden) -->
+          <article class="cert-card card-surface lift hidden-card">
+            <div class="card-thumbnail-box">
+              <div class="thumbnail-placeholder"><span>Coming Soon</span></div>
+            </div>
+            <div class="cert-card-body">
+              <span class="cert-badge">Planned</span>
+              <h3 class="cert-title">AWS Certified Cloud Practitioner</h3>
+              <p class="cert-org">Amazon Web Services</p>
+              <span class="cert-status">Planned for 2026</span>
+            </div>
+          </article>
+        </div>
+
+        <div style="text-align: center">
+          <button
+            class="btn btn-outline btn-sm view-all-btn"
+            data-target="cert-grid"
+            data-expand-text="View all certifications"
+            data-collapse-text="Show fewer certifications"
+          >
+            View all certifications <span class="arrow">↓</span>
+          </button>
         </div>
       </div>
     </section>
@@ -1215,14 +1419,13 @@
           <p class="section-subtitle">Academic accolades and distinctions.</p>
         </div>
 
-        <div class="honors-grid">
-          <div class="honor-card card-surface lift reveal">
+        <div class="honors-grid" id="honors-grid">
+          <!-- Card 1 (Visible) -->
+          <article class="honor-card card-surface lift reveal">
             <div class="card-thumbnail-box">
-              <img
-                src="assets/honors/honors_prothom_alo_certificate.jpeg"
-                alt="Honor Thumbnail"
-                class="card-banner-img"
-              />
+              <div class="thumbnail-placeholder">
+                <span>Award Thumbnail</span>
+              </div>
             </div>
             <div class="honor-body">
               <span class="honor-tag">Academic Excellence</span>
@@ -1231,47 +1434,88 @@
               </h3>
               <p class="honor-desc">
                 Recognized for outstanding academic achievement after earning a
-                perfect GPA 5.00 in the HSC examinations. The award was
-                presented at the Presidency University–Prothom Alo HSC GPA-5
-                Reception 2025 in recognition of exceptional academic
-                performance.
+                perfect GPA 5.00 in the HSC examinations.
               </p>
             </div>
-          </div>
+          </article>
 
-          <div class="honor-card card-surface lift reveal">
+          <!-- Card 2 (Visible) -->
+          <article class="honor-card card-surface lift reveal">
             <div class="card-thumbnail-box">
               <div class="thumbnail-placeholder">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="32"
-                  height="32"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path
-                    d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-                  />
-                  <polyline points="14 2 14 8 20 8" />
-                </svg>
-                <span>Certificate Thumbnail</span>
+                <span>Award Thumbnail</span>
               </div>
             </div>
             <div class="honor-body">
-              <span class="honor-tag">Coming Soon</span>
-              <h3 class="honor-title">Draft Title</h3>
+              <span class="honor-tag">Academic Excellence</span>
+              <h3 class="honor-title">SSC GPA 5.00 Distinction</h3>
               <p class="honor-desc">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque,
-                architecto amet excepturi delectus officia earum libero quisquam
-                beatae a, harum neque! Adipisci optio eius consequuntur corrupti
-                molestiae, numquam soluta commodi?
+                Achieved a perfect GPA 5.00 in the Secondary School Certificate
+                (SSC) examinations under the Dhaka Education Board.
               </p>
             </div>
-          </div>
+          </article>
+
+          <!-- Card 3 (Visible) -->
+          <article class="honor-card card-surface lift reveal">
+            <div class="card-thumbnail-box">
+              <div class="thumbnail-placeholder">
+                <span>Award Thumbnail</span>
+              </div>
+            </div>
+            <div class="honor-body">
+              <span class="honor-tag">Competition</span>
+              <h3 class="honor-title">
+                National Robotics Competition Finalist
+              </h3>
+              <p class="honor-desc">
+                Selected as a finalist for designing and programming an
+                autonomous obstacle-avoiding robot using C++ and sensor
+                integration.
+              </p>
+            </div>
+          </article>
+
+          <!-- Card 4 (Hidden) -->
+          <article class="honor-card card-surface lift hidden-card">
+            <div class="card-thumbnail-box">
+              <div class="thumbnail-placeholder"><span>Coming Soon</span></div>
+            </div>
+            <div class="honor-body">
+              <span class="honor-tag">Draft</span>
+              <h3 class="honor-title">Draft Honor Title 04</h3>
+              <p class="honor-desc">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque,
+                architecto amet excepturi delectus officia.
+              </p>
+            </div>
+          </article>
+
+          <!-- Card 5 (Hidden) -->
+          <article class="honor-card card-surface lift hidden-card">
+            <div class="card-thumbnail-box">
+              <div class="thumbnail-placeholder"><span>Coming Soon</span></div>
+            </div>
+            <div class="honor-body">
+              <span class="honor-tag">Draft</span>
+              <h3 class="honor-title">Draft Honor Title 05</h3>
+              <p class="honor-desc">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque,
+                architecto amet excepturi delectus officia.
+              </p>
+            </div>
+          </article>
+        </div>
+
+        <div style="text-align: center">
+          <button
+            class="btn btn-outline btn-sm view-all-btn"
+            data-target="honors-grid"
+            data-expand-text="View all achievements"
+            data-collapse-text="Show fewer achievements"
+          >
+            View all achievements <span class="arrow">↓</span>
+          </button>
         </div>
       </div>
     </section>

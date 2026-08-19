@@ -1142,10 +1142,28 @@ html.dark .theme-toggle .icon-moon,
   width: fit-content;
   font-weight: 600;
 }
+
 .blog-date {
-  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 600;
   color: var(--muted-foreground);
+  background: var(--secondary);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
 }
+
+.blog-date svg {
+  width: 13px;
+  height: 13px;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
 .blog-title {
   font-size: 18px;
   font-weight: 600;
@@ -1898,4 +1916,44 @@ html.dark .theme-toggle .icon-moon,
   .card-thumbnail-box {
     height: 160px;
   }
+}
+
+/* ═══════════════════════════════════════════════════════
+EXPANDABLE GRIDS (View All / Show Less)
+═══════════════════════════════════════════════════════ */
+.hidden-card {
+  display: none;
+}
+
+/* When the parent grid has the 'grid-expanded' class, show hidden cards */
+.grid-expanded .hidden-card {
+  display: flex; /* Matches the flex display of your card classes */
+  animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.view-all-btn {
+  margin: 32px auto 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.view-all-btn .arrow {
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.view-all-btn.expanded .arrow {
+  transform: rotate(180deg);
 }
