@@ -280,7 +280,7 @@
     requestAnimationFrame(renderParticles);
   }
 
-  // ─── Floating Tiny Terminal Button & Upgraded Drawer ──
+  // ─── Floating Terminal Button & Polished Drawer ──────
   const terminalDrawer = document.getElementById("terminalDrawer");
   const floatingTermBtn = document.getElementById("floatingTermBtn");
   const termCloseBtn = document.getElementById("termCloseBtn");
@@ -294,6 +294,17 @@
     if (terminalDrawer) {
       terminalDrawer.classList.add("active");
       if (terminalInput) terminalInput.focus();
+      // Show welcome message only on first open
+      if (terminalOutput && terminalOutput.children.length <= 1) {
+        appendTermLine(
+          `<div class="term-block">
+        <strong>Welcome to Jehan's Interactive Shell 🚀</strong><br>
+        I've built this terminal to give you a quick overview of my work.<br>
+        Type <span class="term-cmd">help</span> to see available commands, or just explore!
+      </div>`,
+          "info",
+        );
+      }
     }
   }
 
@@ -301,16 +312,12 @@
     if (terminalDrawer) terminalDrawer.classList.remove("active");
   }
 
-  if (floatingTermBtn) {
-    floatingTermBtn.addEventListener("click", () => {
-      if (terminalDrawer.classList.contains("active")) {
-        closeTerminal();
-      } else {
-        openTerminal();
-      }
-    });
-  }
-
+  if (floatingTermBtn)
+    floatingTermBtn.addEventListener("click", () =>
+      terminalDrawer.classList.contains("active")
+        ? closeTerminal()
+        : openTerminal(),
+    );
   if (termCloseBtn) termCloseBtn.addEventListener("click", closeTerminal);
   if (termMinBtn)
     termMinBtn.addEventListener("click", () =>
@@ -322,23 +329,22 @@
     );
   if (termClearBtn)
     termClearBtn.addEventListener("click", () => {
-      if (terminalOutput) {
+      if (terminalOutput)
         terminalOutput.innerHTML =
           '<div class="term-line info">Console cleared. Type <span class="term-cmd">help</span> for commands.</div>';
-      }
     });
 
+  // Keyboard shortcut to toggle terminal
   document.addEventListener("keydown", (e) => {
     if (e.ctrlKey && e.key === "`") {
       e.preventDefault();
-      if (terminalDrawer.classList.contains("active")) {
-        closeTerminal();
-      } else {
-        openTerminal();
-      }
+      terminalDrawer.classList.contains("active")
+        ? closeTerminal()
+        : openTerminal();
     }
   });
 
+  // ─── Terminal Input & History ────────────────────────
   const commandHistory = [];
   let historyIndex = -1;
 
@@ -352,10 +358,12 @@
         historyIndex = commandHistory.length;
         terminalInput.value = "";
 
+        // Echo the typed command
         appendTermLine(
-          `jehan@system:~$ ${escapeHTML(rawInput)}`,
-          "prompt-echo",
+          `<div class="term-echo">jehan@sys:~$ <span class="cmd-text">${escapeHTML(rawInput)}</span></div>`,
         );
+
+        // Process command (case-insensitive)
         processCLICommand(rawInput.toLowerCase());
       } else if (e.key === "ArrowUp") {
         if (historyIndex > 0) {
@@ -384,158 +392,139 @@
   }
 
   function escapeHTML(str) {
-    return str.replace(
-      /[&<>'"]/g,
-      (tag) =>
-        ({
-          "&": "&amp;",
-          "<": "&lt;",
-          ">": "&gt;",
-          "'": "&#39;",
-          '"': "&quot;",
-        })[tag] || tag,
-    );
+    const div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
   }
 
-  function processCLICommand(cmd) {
-    const mainCmd = cmd.split(" ")[0];
+  // ─── Command Dictionary (Clean & Simple) ─────────────
+  const commands = {
+    help: () => {
+      appendTermLine(
+        `<div class="term-block">
+      <strong>Available Commands:</strong><br>
+      • <span class="term-cmd">neofetch</span> &nbsp;— View my system identity & role<br>
+      • <span class="term-cmd">about</span> &nbsp;&nbsp;&nbsp;&nbsp;— Learn more about me<br>
+      • <span class="term-cmd">skills</span> &nbsp;&nbsp;&nbsp;— View my technical stack<br>
+      • <span class="term-cmd">projects</span> &nbsp;— See my featured work<br>
+      • <span class="term-cmd">contact</span> &nbsp;&nbsp;— Get my email & socials<br>
+      • <span class="term-cmd">theme</span> &nbsp;&nbsp;&nbsp;&nbsp;— Toggle light/dark mode<br>
+      • <span class="term-cmd">clear</span> &nbsp;&nbsp;&nbsp;&nbsp;— Clear the screen
+    </div>`,
+        "info",
+      );
+    },
 
-    switch (mainCmd) {
-      case "help":
-        appendTermLine(
-          `
-          System Commands:<br/>
-          • <span class="term-cmd">neofetch</span> &nbsp;— Display system identity banner<br/>
-          • <span class="term-cmd">whoami</span> &nbsp;&nbsp;&nbsp;— Print current user bio<br/>
-          • <span class="term-cmd">skills</span> &nbsp;&nbsp;&nbsp;— View technical stack & level<br/>
-          • <span class="term-cmd">education</span> — View academic timeline (HSC/SSC)<br/>
-          • <span class="term-cmd">experience</span>— Founding Advisor details<br/>
-          • <span class="term-cmd">projects</span> &nbsp;— List selected repositories<br/>
-          • <span class="term-cmd">blogs</span> &nbsp;&nbsp;&nbsp;&nbsp;— View LinkedIn articles<br/>
-          • <span class="term-cmd">contact</span> &nbsp;&nbsp;— Direct email & location<br/>
-          • <span class="term-cmd">github</span> &nbsp;&nbsp;&nbsp;— Open GitHub profile<br/>
-          • <span class="term-cmd">theme</span> &nbsp;&nbsp;&nbsp;&nbsp;— Toggle light / dark mode<br/>
-          • <span class="term-cmd">clear</span> &nbsp;&nbsp;&nbsp;&nbsp;— Clear screen output
-        `,
-          "info",
-        );
-        break;
+    neofetch: () => {
+      appendTermLine(
+        `<div class="term-block">
+      <strong>╭─ SYSTEM IDENTITY ─────────────────╮</strong><br>
+      <strong>User:</strong> &nbsp;&nbsp;&nbsp;&nbsp;Abdullah Al Jehan<br>
+      <strong>OS:</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AJ-OS v2.0 (Linux Daily Driver)<br>
+      <strong>Role:</strong> &nbsp;&nbsp;&nbsp;Embedded Systems & IoT Dev<br>
+      <strong>Status:</strong> &nbsp;<span class="highlight-text">🟢 Open to Research & Collabs</span><br>
+      <strong>Location:</strong> Dhaka, Bangladesh<br>
+      <strong>╰──────────────────────────────────╯</strong>
+    </div>`,
+        "success",
+      );
+    },
 
-      case "neofetch":
-        appendTermLine(
-          `
-          <pre style="font-family:var(--font-mono); color:#38bdf8; margin:4px 0;">
-   /\   AJ OS v2.0
-  /  \  User: Jehan
- / /\ \ Host: Embedded Systems & IoT
-/ ____ \ Shell: OKLCH Terminal CLI
-          </pre>
-          <strong>OS:</strong> Debian/Linux Daily Driver<br/>
-          <strong>Location:</strong> Dhaka, Bangladesh<br/>
-          <strong>Role:</strong> Founding Advisor @ Kynatium Labs
-        `,
-          "success",
-        );
-        break;
+    about: () => {
+      appendTermLine(
+        `<div class="term-block">
+      <strong>Who am I?</strong><br>
+      Hi, I’m Jehan! I'm an ambitious science student with a strong foundation in math and physics, gearing up for an engineering career. I specialize in <span class="highlight-text">Embedded Systems, IoT, and C Programming</span>.<br><br>
+      Currently, I'm the Founding Advisor at <strong>Kynatium Labs</strong>, working to make tech education accessible in Bangladesh. My philosophy: <em>"Build, break, and iterate."</em>
+    </div>`,
+        "output",
+      );
+    },
+    whoami: () => commands.about(), // Alias
+    bio: () => commands.about(), // Alias
 
-      case "whoami":
-      case "bio":
-        appendTermLine(
-          `
-          "Hi, I’m Jehan! Ambitious science student gearing up for engineering. Deep dive into Embedded systems, IoT, C programming, and Linux."
-        `,
-          "output",
-        );
-        break;
+    skills: () => {
+      appendTermLine(
+        `<div class="term-block">
+      <strong>Technical Stack & Proficiency:</strong><br>
+      • <strong>Languages:</strong> C (80%), HTML/CSS (65%), C++ (25%)<br>
+      • <strong>Systems:</strong> Linux/Debian (55%), Git/GitHub (65%), Bash (45%)<br>
+      • <strong>Embedded:</strong> Arduino (45%), Sensors & Hardware Integration (25%)<br>
+      • <strong>Currently Learning:</strong> OOP, Advanced Linux Admin, AI/ML basics
+    </div>`,
+        "success",
+      );
+    },
 
-      case "skills":
-        appendTermLine(
-          `
-          • Web: HTML5/CSS3 (80%)<br/>
-          • Core Languages: C (65%), C++ (45%)<br/>
-          • Systems: Git/GitHub (75%), Linux (70%), Bash (60%)<br/>
-          • Embedded: Arduino (55%), Sensors (50%), Hardware-Software Integration (45%)
-        `,
-          "success",
-        );
-        break;
+    projects: () => {
+      appendTermLine(
+        `<div class="term-block">
+      <strong>Featured Projects:</strong><br>
+      1. <strong>Contact Management System</strong> [C, Binary File I/O, CLI]<br>
+      2. <strong>Obstacle Avoiding Robot</strong> [C++, Arduino, Ultrasonic Sensors]<br>
+      3. <strong>Personal Portfolio</strong> [HTML5, OKLCH CSS, Vanilla JS]<br><br>
+      <em>Tip: Scroll down to the "Projects" section on the main page to see the live GitHub previews!</em>
+    </div>`,
+        "output",
+      );
+    },
 
-      case "education":
-        appendTermLine(
-          `
-          1. <strong>HSC (Government Science College)</strong> — Science Stream · GPA 5.00/5.00 [2023-2025]<br/>
-          2. <strong>SSC (Dr. Iajuddin Ahmed RMSC)</strong> — Science Stream · GPA 5.00/5.00 [2018-2023]
-        `,
-          "output",
-        );
-        break;
+    contact: () => {
+      appendTermLine(
+        `<div class="term-block">
+      <strong>Let's Connect:</strong><br>
+      📧 <strong>Email:</strong> <a href="mailto:abdullahaljehan.me@gmail.com" class="term-cmd">abdullahaljehan.me@gmail.com</a><br>
+      💼 <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/abdullah-al-jehan" target="_blank" class="term-cmd">abdullah-al-jehan</a><br>
+      💻 <strong>GitHub:</strong> <a href="https://github.com/abdullahaljehan-me" target="_blank" class="term-cmd">abdullahaljehan-me</a><br>
+      📍 <strong>Location:</strong> Dhaka, Bangladesh
+    </div>`,
+        "info",
+      );
+    },
 
-      case "experience":
-        appendTermLine(
-          `
-          <strong>Founding Advisor @ Kynatium Labs</strong> [Jan 2026 — Present]<br/>
-          Advising on tech outreach, embedded fundamentals education, and roadmap strategy.
-        `,
-          "output",
-        );
-        break;
+    theme: () => {
+      if (themeToggle) themeToggle.click();
+      appendTermLine("🎨 Theme toggled successfully.", "success");
+    },
 
-      case "projects":
-        appendTermLine(
-          `
-          1. <strong>Contact Management System</strong> [C, Binary Files]<br/>
-          2. <strong>Obstacle Avoiding Robot</strong> [C++, Ultrasonic, Motors]<br/>
-          3. <strong>Personal Portfolio Site</strong> [HTML5, OKLCH CSS, JS]
-        `,
-          "output",
-        );
-        break;
+    clear: () => {
+      if (terminalOutput) terminalOutput.innerHTML = "";
+    },
 
-      case "blogs":
-        appendTermLine(
-          `
-          1. <em>Engineering Aspirations & Embedded Learning Insights</em> (LinkedIn)<br/>
-          2. <em>Hands-On Tech Education & Kynatium Labs Outreach</em> (LinkedIn)
-        `,
-          "info",
-        );
-        break;
+    // ─── Simple, Friendly Easter Eggs ──────────────────
+    sudo: () => {
+      appendTermLine(
+        "🔒 Nice try! But you don't have root access to my brain. 😉",
+        "error",
+      );
+    },
 
-      case "contact":
-        appendTermLine(
-          `
-          Email: <a href="mailto:abdullahaljehan.me@gmail.com" class="term-cmd">abdullahaljehan.me@gmail.com</a><br/>
-          LinkedIn: <a href="https://www.linkedin.com/in/abdullah-al-jehan" target="_blank">linkedin.com/in/abdullah-al-jehan</a><br/>
-          Location: Dhaka, Bangladesh
-        `,
-          "info",
-        );
-        break;
+    coffee: () => {
+      appendTermLine(
+        "☕ Brewing a fresh cup of coffee... System performance increasing by 200%.",
+        "success",
+      );
+    },
 
-      case "github":
-        appendTermLine("Opening github.com/abdullahaljehan-me...", "success");
-        window.open("https://github.com/abdullahaljehan-me", "_blank");
-        break;
+    hello: () => {
+      appendTermLine(
+        '👋 Hello there! How can I help you today? Type <span class="term-cmd">help</span> to see what I can do.',
+        "info",
+      );
+    },
+  };
 
-      case "theme":
-        if (themeToggle) themeToggle.click();
-        appendTermLine("Theme toggled.", "success");
-        break;
+  // ─── Command Router ──────────────────────────────────
+  function processCLICommand(rawCmd) {
+    const mainCmd = rawCmd.split(" ")[0];
 
-      case "clear":
-        terminalOutput.innerHTML = "";
-        break;
-
-      case "date":
-        appendTermLine(new Date().toString(), "info");
-        break;
-
-      default:
-        appendTermLine(
-          `Command not found: '${escapeHTML(cmd)}'. Type <span class="term-cmd">help</span> or <span class="term-cmd">neofetch</span>.`,
-          "error",
-        );
-        break;
+    if (commands[mainCmd]) {
+      commands[mainCmd]();
+    } else {
+      appendTermLine(
+        `❌ Command not found: '${escapeHTML(mainCmd)}'.<br>Type <span class="term-cmd">help</span> to see available options.`,
+        "error",
+      );
     }
   }
 
