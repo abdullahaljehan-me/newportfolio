@@ -552,11 +552,14 @@
       const email = document.getElementById("email").value.trim();
       const message = document.getElementById("message").value.trim();
 
+      // Client-side validation
       if (!name || !email || !message) {
-        e.preventDefault();
+        e.preventDefault(); // Stop submission if empty
         showToast("Please fill in all required fields.", "⚠️");
         return;
       }
+
+      // If valid, DO NOT prevent default. Let Formsubmit.co handle the POST request.
       showToast("Sending message...", "🚀");
     });
   }
@@ -588,4 +591,130 @@
       }
     });
   });
+
+  // Function to open modal
+  function openCaseStudy(projectId) {
+    const data = caseStudies[projectId];
+    if (!data || !caseStudyModal) return;
+
+    modalTitle.textContent = data.title;
+    modalBody.innerHTML = data.content;
+    caseStudyModal.showModal(); // Native dialog method
+  }
+
+  // Close modal logic
+  if (modalCloseBtn) {
+    modalCloseBtn.addEventListener("click", () => {
+      caseStudyModal.close();
+    });
+  }
+
+  // Close when clicking outside the modal content (on the backdrop)
+  if (caseStudyModal) {
+    caseStudyModal.addEventListener("click", (e) => {
+      const dialogDimensions = caseStudyModal.getBoundingClientRect();
+      if (
+        e.clientX < dialogDimensions.left ||
+        e.clientX > dialogDimensions.right ||
+        e.clientY < dialogDimensions.top ||
+        e.clientY > dialogDimensions.bottom
+      ) {
+        caseStudyModal.close();
+      }
+    });
+  }
+
+  // ─── Technical Breakdown Modal Logic ─────────────────────
+  const breakdownModal = document.getElementById("breakdownModal");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalBody = document.getElementById("modalBody");
+  const modalCloseBtn = document.getElementById("modalCloseBtn");
+
+  const projectBreakdowns = {
+    "contact-management": {
+      title: "Contact Management System (C)",
+      content: `
+        <h4>🎯 The Engineering Problem</h4>
+        <p>Needed a persistent, zero-dependency CLI tool to manage contact records in pure C, avoiding heavy databases while ensuring data integrity.</p>
+        <h4>🏗️ Architecture & Implementation</h4>
+        <ul>
+          <li><strong>Storage Engine:</strong> Implemented binary file I/O (<code>fread</code>/<code>fwrite</code>) using fixed-size C <code>structs</code> for O(1) record retrieval.</li>
+          <li><strong>Memory Management:</strong> Used dynamic allocation for variable-length string inputs, carefully tracking pointers to prevent memory leaks during CRUD operations.</li>
+          <li><strong>Search Algorithm:</strong> Linear search optimized with early-exit conditions for the CLI environment.</li>
+        </ul>
+        <h4>⚠️ Challenges & Edge Cases</h4>
+        <p>Handling file corruption and unexpected EOF (End of File) states. Solved by implementing robust <code>perror</code> error checking and validating struct sizes before writing to disk.</p>
+        <h4>💡 Key Takeaway</h4>
+        <p>Deepened understanding of how operating systems handle file descriptors, memory alignment in structs, and low-level data manipulation without abstractions.</p>
+      `,
+    },
+    "obstacle-robot": {
+      title: "Obstacle Avoiding Robot (C++/Arduino)",
+      content: `
+        <h4>🎯 The Engineering Problem</h4>
+        <p>Design an autonomous navigation system capable of processing real-time physical environment data and executing low-latency motor control.</p>
+        <h4>🏗️ Architecture & Hardware Stack</h4>
+        <ul>
+          <li><strong>Compute:</strong> ATmega328P Microcontroller (Arduino).</li>
+          <li><strong>Sensors:</strong> HC-SR04 Ultrasonic (measuring pulse width for distance).</li>
+          <li><strong>Actuators:</strong> L298N H-Bridge Motor Driver controlling dual DC gear motors via PWM.</li>
+        </ul>
+        <h4>⚠️ Challenges & Edge Cases</h4>
+        <p>Ultrasonic sensors suffer from acoustic noise and multipath interference, causing false positives. I implemented a <strong>moving average filter</strong> in C++ to smooth the distance readings before the navigation logic made steering decisions.</p>
+        <h4>💡 Key Takeaway</h4>
+        <p>Bridged the gap between theoretical logic and physical hardware constraints, specifically regarding power delivery voltage drops and sensor calibration.</p>
+      `,
+    },
+    "portfolio-site": {
+      title: "Personal Portfolio (Vanilla JS/OKLCH)",
+      content: `
+        <h4>🎯 The Engineering Problem</h4>
+        <p>Build a high-performance, accessible, and visually striking portfolio with zero build tools, npm dependencies, or frontend frameworks.</p>
+        <h4>🏗️ Architecture & Implementation</h4>
+        <ul>
+          <li><strong>Design System:</strong> Utilized the modern <strong>OKLCH color space</strong> for perceptually uniform light/dark theme transitions.</li>
+          <li><strong>Rendering:</strong> Custom HTML5 Canvas API particle mesh background optimized with <code>requestAnimationFrame</code> and reduced-motion media queries.</li>
+          <li><strong>State Management:</strong> Vanilla JS for theme persistence (LocalStorage), IntersectionObserver for scroll reveals, and native <code>&lt;dialog&gt;</code> for accessible modals.</li>
+        </ul>
+        <h4>⚠️ Challenges & Edge Cases</h4>
+        <p>Managing Canvas performance on lower-end devices without dropping frames. Solved by dynamically capping particle count based on viewport width and respecting <code>prefers-reduced-motion</code>.</p>
+        <h4>💡 Key Takeaway</h4>
+        <p>Proved that modern, complex web experiences can be built natively without the bloat of React/Vue, resulting in a 100/100 Lighthouse performance score.</p>
+      `,
+    },
+  };
+
+  // Event delegation for buttons
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest(".breakdown-btn");
+    if (!btn || !breakdownModal) return;
+
+    const projectId = btn.getAttribute("data-project");
+    const data = projectBreakdowns[projectId];
+
+    if (data) {
+      modalTitle.textContent = data.title;
+      modalBody.innerHTML = data.content;
+      breakdownModal.showModal(); // Native HTML5 dialog method
+    }
+  });
+
+  if (modalCloseBtn) {
+    modalCloseBtn.addEventListener("click", () => breakdownModal.close());
+  }
+
+  if (breakdownModal) {
+    breakdownModal.addEventListener("click", (e) => {
+      // Close if clicking the backdrop
+      const rect = breakdownModal.getBoundingClientRect();
+      if (
+        e.clientX < rect.left ||
+        e.clientX > rect.right ||
+        e.clientY < rect.top ||
+        e.clientY > rect.bottom
+      ) {
+        breakdownModal.close();
+      }
+    });
+  }
 })();

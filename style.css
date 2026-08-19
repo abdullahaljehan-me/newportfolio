@@ -2013,3 +2013,209 @@ POLISHED TERMINAL UI
   color: #f8fafc;
   font-weight: 500;
 }
+
+/* Skip Link for Accessibility */
+.skip-link {
+  position: absolute;
+  top: -9999px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--primary);
+  color: var(--primary-foreground);
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  z-index: 10000;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top var(--transition-fast);
+}
+.skip-link:focus {
+  top: 20px;
+}
+
+/* Case Study Modal (Native Dialog) */
+.case-study-modal {
+  border: none;
+  background: transparent;
+  padding: 0;
+  max-width: 600px;
+  width: 90vw;
+  border-radius: var(--radius-xl);
+}
+.case-study-modal::backdrop {
+  background: oklch(0 0 0 / 0.6);
+  backdrop-filter: blur(4px);
+}
+.modal-content {
+  background: var(--card);
+  color: var(--card-foreground);
+  border: 1px solid var(--border);
+  padding: 0;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+}
+.modal-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+.modal-close-btn {
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.modal-close-btn:hover {
+  background: var(--destructive);
+  color: white;
+  border-color: var(--destructive);
+}
+.modal-body {
+  padding: 24px;
+  overflow-y: auto;
+  line-height: 1.6;
+}
+.modal-body h4 {
+  font-size: 15px;
+  color: var(--primary);
+  margin: 20px 0 8px 0;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.modal-body h4:first-child {
+  margin-top: 0;
+}
+.modal-body p,
+.modal-body li {
+  font-size: 14px;
+  color: var(--muted-foreground);
+}
+.modal-body ul {
+  padding-left: 20px;
+  margin: 8px 0;
+}
+.modal-body li {
+  margin-bottom: 6px;
+}
+
+/* ═══════════════════════════════════════════════════════
+TECHNICAL BREAKDOWN MODAL
+═══════════════════════════════════════════════════════ */
+.project-actions {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 12px;
+}
+.project-actions .breakdown-btn {
+  flex: 1;
+  justify-content: center;
+}
+.project-repo-btn {
+  flex: 1;
+  justify-content: center;
+  font-size: 13px;
+  gap: 8px;
+}
+.project-repo-btn:hover {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+
+.breakdown-modal {
+  border: none;
+  background: transparent;
+  padding: 0;
+  max-width: 600px;
+  width: 90vw;
+  border-radius: var(--radius-xl);
+}
+.breakdown-modal::backdrop {
+  background: oklch(0 0 0 / 0.6);
+  backdrop-filter: blur(4px);
+}
+.breakdown-modal .modal-content {
+  background: var(--card);
+  color: var(--card-foreground);
+  border: 1px solid var(--border);
+  padding: 0;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+.breakdown-modal .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+}
+.breakdown-modal .modal-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+.breakdown-modal .modal-close-btn {
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.breakdown-modal .modal-close-btn:hover {
+  background: var(--destructive);
+  color: white;
+  border-color: var(--destructive);
+}
+.breakdown-modal .modal-body {
+  padding: 24px;
+  overflow-y: auto;
+  line-height: 1.6;
+}
+.breakdown-modal .modal-body h4 {
+  font-size: 15px;
+  color: var(--primary);
+  margin: 20px 0 8px 0;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.breakdown-modal .modal-body h4:first-child {
+  margin-top: 0;
+}
+.breakdown-modal .modal-body p,
+.breakdown-modal .modal-body li {
+  font-size: 14px;
+  color: var(--muted-foreground);
+}
+.breakdown-modal .modal-body ul {
+  padding-left: 20px;
+  margin: 8px 0;
+}
+.breakdown-modal .modal-body li {
+  margin-bottom: 6px;
+}
