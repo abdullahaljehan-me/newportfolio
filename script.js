@@ -519,7 +519,7 @@
     const mainCmd = rawCmd.split(" ")[0];
 
     if (commands[mainCmd]) {
-      commands[mainCmd]();
+      commands[mainCmd](); /
     } else {
       appendTermLine(
         `❌ Command not found: '${escapeHTML(mainCmd)}'.<br>Type <span class="term-cmd">help</span> to see available options.`,
@@ -591,38 +591,6 @@
       }
     });
   });
-
-  // Function to open modal
-  function openCaseStudy(projectId) {
-    const data = caseStudies[projectId];
-    if (!data || !caseStudyModal) return;
-
-    modalTitle.textContent = data.title;
-    modalBody.innerHTML = data.content;
-    caseStudyModal.showModal(); // Native dialog method
-  }
-
-  // Close modal logic
-  if (modalCloseBtn) {
-    modalCloseBtn.addEventListener("click", () => {
-      caseStudyModal.close();
-    });
-  }
-
-  // Close when clicking outside the modal content (on the backdrop)
-  if (caseStudyModal) {
-    caseStudyModal.addEventListener("click", (e) => {
-      const dialogDimensions = caseStudyModal.getBoundingClientRect();
-      if (
-        e.clientX < dialogDimensions.left ||
-        e.clientX > dialogDimensions.right ||
-        e.clientY < dialogDimensions.top ||
-        e.clientY > dialogDimensions.bottom
-      ) {
-        caseStudyModal.close();
-      }
-    });
-  }
 
   // ─── Technical Breakdown Modal Logic ─────────────────────
   const breakdownModal = document.getElementById("breakdownModal");
