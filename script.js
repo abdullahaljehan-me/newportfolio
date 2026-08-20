@@ -598,18 +598,72 @@
   const modalBody = document.getElementById("modalBody");
   const modalCloseBtn = document.getElementById("modalCloseBtn");
 
+  // Premium SVG Icons (No emojis, matches website theme)
+  const iconTarget = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>`;
+  const iconArch = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>`;
+  const iconChallenge = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`;
+  const iconTakeaway = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.9.27-1.48.27-2.09A5.07 5.07 0 0 0 10 6.82V5a2 2 0 0 1 4 0v1.09a5.07 5.07 0 0 0-5.36 5.09c0 .61.09 1.19.27 2.09"/><circle cx="12" cy="14" r="2"/></svg>`;
+
   const projectBreakdowns = {
     "contact-management": {
       title: "Contact Management System (C)",
-      content: `<h4>🎯 The Engineering Problem</h4> <p>Needed a persistent, zero-dependency CLI tool to manage contact records in pure C, avoiding heavy databases while ensuring data integrity.</p> <h4>🏗️ Architecture & Implementation</h4> <ul> <li><strong>Storage Engine:</strong> Implemented binary file I/O (<code>fread</code>/<code>fwrite</code>) using fixed-size C <code>structs</code> for O(1) record retrieval.</li> <li><strong>Memory Management:</strong> Used dynamic allocation for variable-length string inputs, carefully tracking pointers to prevent memory leaks during CRUD operations.</li> <li><strong>Search Algorithm:</strong> Linear search optimized with early-exit conditions for the CLI environment.</li> </ul> <h4>⚠️ Challenges & Edge Cases</h4> <p>Handling file corruption and unexpected EOF (End of File) states. Solved by implementing robust <code>perror</code> error checking and validating struct sizes before writing to disk.</p> <h4>💡 Key Takeaway</h4> <p>Deepened understanding of how operating systems handle file descriptors, memory alignment in structs, and low-level data manipulation without abstractions.</p>`,
+      content: `
+        <h4>${iconTarget} The Engineering Problem</h4>
+        <p>Needed a persistent, zero-dependency CLI tool to manage contact records in pure C, avoiding heavy databases while ensuring data integrity.</p>
+
+        <h4>${iconArch} Architecture & Implementation</h4>
+        <ul>
+          <li><strong>Storage Engine:</strong> Implemented binary file I/O (<code>fread</code>/<code>fwrite</code>) using fixed-size C <code>structs</code> for O(1) record retrieval.</li>
+          <li><strong>Memory Management:</strong> Used dynamic allocation for variable-length string inputs, carefully tracking pointers to prevent memory leaks during CRUD operations.</li>
+          <li><strong>Search Algorithm:</strong> Linear search optimized with early-exit conditions for the CLI environment.</li>
+        </ul>
+
+        <h4>${iconChallenge} Challenges & Edge Cases</h4>
+        <p>Handling file corruption and unexpected EOF (End of File) states. Solved by implementing robust <code>perror</code> error checking and validating struct sizes before writing to disk.</p>
+
+        <h4>${iconTakeaway} Key Takeaway</h4>
+        <p>Deepened understanding of how operating systems handle file descriptors, memory alignment in structs, and low-level data manipulation without abstractions.</p>
+      `,
     },
     "obstacle-robot": {
       title: "Obstacle Avoiding Robot (C++/Arduino)",
-      content: `<h4>🎯 The Engineering Problem</h4> <p>Design an autonomous navigation system capable of processing real-time physical environment data and executing low-latency motor control.</p> <h4>🏗️ Architecture & Hardware Stack</h4> <ul> <li><strong>Compute:</strong> ATmega328P Microcontroller (Arduino).</li> <li><strong>Sensors:</strong> HC-SR04 Ultrasonic (measuring pulse width for distance).</li> <li><strong>Actuators:</strong> L298N H-Bridge Motor Driver controlling dual DC gear motors via PWM.</li> </ul> <h4>⚠️ Challenges & Edge Cases</h4> <p>Ultrasonic sensors suffer from acoustic noise and multipath interference, causing false positives. I implemented a <strong>moving average filter</strong> in C++ to smooth the distance readings before the navigation logic made steering decisions.</p> <h4>💡 Key Takeaway</h4> <p>Bridged the gap between theoretical logic and physical hardware constraints, specifically regarding power delivery voltage drops and sensor calibration.</p>`,
+      content: `
+        <h4>${iconTarget} The Engineering Problem</h4>
+        <p>Design an autonomous navigation system capable of processing real-time physical environment data and executing low-latency motor control.</p>
+
+        <h4>${iconArch} Architecture & Hardware Stack</h4>
+        <ul>
+          <li><strong>Compute:</strong> ATmega328P Microcontroller (Arduino).</li>
+          <li><strong>Sensors:</strong> HC-SR04 Ultrasonic (measuring pulse width for distance).</li>
+          <li><strong>Actuators:</strong> L298N H-Bridge Motor Driver controlling dual DC gear motors via PWM.</li>
+        </ul>
+
+        <h4>${iconChallenge} Challenges & Edge Cases</h4>
+        <p>Ultrasonic sensors suffer from acoustic noise and multipath interference, causing false positives. Implemented a <strong>moving average filter</strong> in C++ to smooth distance readings before navigation logic made steering decisions.</p>
+
+        <h4>${iconTakeaway} Key Takeaway</h4>
+        <p>Bridged the gap between theoretical logic and physical hardware constraints, specifically regarding power delivery voltage drops and sensor calibration.</p>
+      `,
     },
     "portfolio-site": {
       title: "Personal Portfolio (Vanilla JS/OKLCH)",
-      content: `<h4>🎯 The Engineering Problem</h4> <p>Build a high-performance, accessible, and visually striking portfolio with zero build tools, npm dependencies, or frontend frameworks.</p> <h4>🏗️ Architecture & Implementation</h4> <ul> <li><strong>Design System:</strong> Utilized the modern <strong>OKLCH color space</strong> for perceptually uniform light/dark theme transitions.</li> <li><strong>Rendering:</strong> Custom HTML5 Canvas API particle mesh background optimized with <code>requestAnimationFrame</code> and reduced-motion media queries.</li> <li><strong>State Management:</strong> Vanilla JS for theme persistence (LocalStorage), IntersectionObserver for scroll reveals, and native <code>&lt;dialog&gt;</code> for accessible modals.</li> </ul> <h4>⚠️ Challenges & Edge Cases</h4> <p>Managing Canvas performance on lower-end devices without dropping frames. Solved by dynamically capping particle count based on viewport width and respecting <code>prefers-reduced-motion</code>.</p> <h4>💡 Key Takeaway</h4> <p>Proved that modern, complex web experiences can be built natively without the bloat of React/Vue, resulting in a 100/100 Lighthouse performance score.</p>`,
+      content: `
+        <h4>${iconTarget} The Engineering Problem</h4>
+        <p>Build a high-performance, accessible, and visually striking portfolio with zero build tools, npm dependencies, or frontend frameworks.</p>
+
+        <h4>${iconArch} Architecture & Implementation</h4>
+        <ul>
+          <li><strong>Design System:</strong> Utilized the modern <strong>OKLCH color space</strong> for perceptually uniform light/dark theme transitions.</li>
+          <li><strong>Rendering:</strong> Custom HTML5 Canvas API particle mesh background optimized with <code>requestAnimationFrame</code> and reduced-motion media queries.</li>
+          <li><strong>State Management:</strong> Vanilla JS for theme persistence (LocalStorage), IntersectionObserver for scroll reveals, and native <code>&lt;dialog&gt;</code> for accessible modals.</li>
+        </ul>
+
+        <h4>${iconChallenge} Challenges & Edge Cases</h4>
+        <p>Managing Canvas performance on lower-end devices without dropping frames. Solved by dynamically capping particle count based on viewport width and respecting <code>prefers-reduced-motion</code>.</p>
+
+        <h4>${iconTakeaway} Key Takeaway</h4>
+        <p>Proved that modern, complex web experiences can be built natively without the bloat of React/Vue, resulting in a 100/100 Lighthouse performance score.</p>
+      `,
     },
   };
 

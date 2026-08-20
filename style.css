@@ -2115,8 +2115,8 @@ POLISHED TERMINAL UI
 }
 
 /* ═══════════════════════════════════════════════════════
-TECHNICAL BREAKDOWN MODAL
-═══════════════════════════════════════════════════════ */
+   REDESIGNED TECHNICAL BREAKDOWN MODAL (4:3 Ratio)
+   ═══════════════════════════════════════════════════════ */
 .project-actions {
   margin-top: 20px;
   padding-top: 16px;
@@ -2140,84 +2140,182 @@ TECHNICAL BREAKDOWN MODAL
   border-color: var(--primary);
 }
 
+/* Native dialog centers perfectly with margin: auto */
 .breakdown-modal {
   border: none;
   background: transparent;
   padding: 0;
-  max-width: 600px;
-  width: 90vw;
-  border-radius: var(--radius-xl);
+  width: min(90vw, 800px);
+  aspect-ratio: 4 / 3; /* Enforces the 4:3 ratio */
+  border-radius: var(--radius-2xl);
+  margin: auto;
 }
+
 .breakdown-modal::backdrop {
   background: oklch(0 0 0 / 0.6);
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(8px);
 }
+
 .breakdown-modal .modal-content {
   background: var(--card);
   color: var(--card-foreground);
   border: 1px solid var(--border);
-  padding: 0;
-  max-height: 80vh;
+  border-radius: var(--radius-2xl);
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
+  overflow: hidden; /* Maintains rounded corners */
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
+
+/* Matches your website's .lift hover effect */
+.breakdown-modal .modal-content:hover {
+  border-color: color-mix(in oklab, var(--primary) 45%, var(--border));
+  box-shadow: var(--shadow-lift);
+}
+
 .breakdown-modal .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 24px;
+  padding: 24px 32px;
   border-bottom: 1px solid var(--border);
+  background: color-mix(in oklab, var(--card) 98%, var(--primary));
+  flex-shrink: 0;
 }
+
 .breakdown-modal .modal-header h3 {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 700;
   margin: 0;
+  color: var(--foreground);
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
+
+/* Subtle glowing dot next to the title */
+.breakdown-modal .modal-header h3::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--primary);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--primary);
+}
+
 .breakdown-modal .modal-close-btn {
   background: var(--secondary);
   border: 1px solid var(--border);
   color: var(--foreground);
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius-sm);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all var(--transition-fast);
 }
+
 .breakdown-modal .modal-close-btn:hover {
   background: var(--destructive);
   color: white;
   border-color: var(--destructive);
 }
+
 .breakdown-modal .modal-body {
-  padding: 24px;
+  padding: 32px;
   overflow-y: auto;
-  line-height: 1.6;
+  line-height: 1.7;
+  flex: 1; /* Takes remaining space, allowing internal scroll */
 }
+
+/* Custom scrollbar matching the terminal */
+.breakdown-modal .modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+.breakdown-modal .modal-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+.breakdown-modal .modal-body::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+.breakdown-modal .modal-body::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+}
+
 .breakdown-modal .modal-body h4 {
-  font-size: 15px;
+  font-size: 14px;
   color: var(--primary);
-  margin: 20px 0 8px 0;
+  margin: 24px 0 12px 0;
   font-family: var(--font-mono);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
 }
+
 .breakdown-modal .modal-body h4:first-child {
   margin-top: 0;
 }
+
+.breakdown-modal .modal-body h4 svg {
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
 .breakdown-modal .modal-body p,
 .breakdown-modal .modal-body li {
-  font-size: 14px;
+  font-size: 14.5px;
   color: var(--muted-foreground);
 }
+
 .breakdown-modal .modal-body ul {
-  padding-left: 20px;
-  margin: 8px 0;
+  padding-left: 0;
+  margin: 12px 0;
+  list-style: none;
 }
+
 .breakdown-modal .modal-body li {
-  margin-bottom: 6px;
+  margin-bottom: 10px;
+  padding-left: 24px;
+  position: relative;
+}
+
+/* Custom bullet points matching the theme */
+.breakdown-modal .modal-body li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  background: var(--primary);
+  border-radius: 50%;
+  opacity: 0.7;
+}
+
+.breakdown-modal .modal-body code {
+  background: var(--secondary);
+  color: var(--primary);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  border: 1px solid var(--border);
+}
+
+.breakdown-modal .modal-body strong {
+  color: var(--foreground);
+  font-weight: 600;
 }
 
 /* ═══════════════════════════════════════════════════════
