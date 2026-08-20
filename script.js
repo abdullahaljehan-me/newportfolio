@@ -7,24 +7,6 @@
 (function () {
   "use strict";
 
-  // ─── Preloader Screen ────────────────────────────────
-  const preloader = document.getElementById("skeletonPreloader");
-  function hidePreloader() {
-    if (preloader) {
-      preloader.classList.add("fade-out");
-      setTimeout(() => {
-        preloader.style.display = "none";
-      }, 400);
-    }
-  }
-
-  if (document.readyState === "complete") {
-    hidePreloader();
-  } else {
-    window.addEventListener("load", hidePreloader);
-    setTimeout(hidePreloader, 1500);
-  }
-
   // ─── DOM Elements ────────────────────────────────────
   const navbar = document.getElementById("navbar");
   const hamburger = document.getElementById("hamburger");
