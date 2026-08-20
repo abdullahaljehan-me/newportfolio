@@ -519,7 +519,7 @@
     const mainCmd = rawCmd.split(" ")[0];
 
     if (commands[mainCmd]) {
-      commands[mainCmd](); /
+      commands[mainCmd]();
     } else {
       appendTermLine(
         `❌ Command not found: '${escapeHTML(mainCmd)}'.<br>Type <span class="term-cmd">help</span> to see available options.`,
