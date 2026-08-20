@@ -725,6 +725,9 @@ html.dark .theme-toggle .icon-moon,
 }
 .lb-icon {
   font-size: 22px;
+  display: flex;
+  align-items: center;
+  margin-top: 2px;
 }
 .lb-item strong {
   display: block;
